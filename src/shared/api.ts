@@ -63,3 +63,13 @@ export async function askTeacher(params: {
     body: JSON.stringify(params),
   });
 }
+
+export async function explainTopic(params: {
+  moduleTitle: string;
+  topic: string;
+}) {
+  return request<{ explanation: string }>('/api/topic/explain', {
+    method: 'POST',
+    body: JSON.stringify(params),
+  });
+}

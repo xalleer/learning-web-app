@@ -1,14 +1,60 @@
 import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BookOpen, Check, ChevronDown, ClipboardCheck, Code2, Menu } from 'lucide-react';
+import { BookOpen, Check, ChevronDown, ClipboardCheck, Code2, Loader2, Menu, Sparkles } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
 import { getModuleBySlug, ICON_MAP } from '@/shared/course';
+import { explainTopic } from '@/shared/api';
 import { useAppStore } from '@/app/store';
 import { AITeacher } from '@/widgets/AITeacher';
 import { Button, Card, ProgressBar } from '@/shared/ui';
+import { Markdown } from '@/shared/Markdown';
 import { cn, percent } from '@/shared/utils';
 
 const EMPTY_RESULTS: [] = [];
+
+function TopicExplanation({ moduleTitle, topic }: { moduleTitle: string; topic: string }) {
+  const [explanation, setExplanation] = useState<string | null>(null);
+
+  const mutation = useMutation({
+    mutationFn: explainTopic,
+    onSuccess(data) {
+      setExplanation(data.explanation);
+    },
+  });
+
+  if (explanation) {
+    return (
+      <div className="mt-4 rounded-lg border border-accent/20 bg-accent/5 p-4">
+        <Markdown content={explanation} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-4">
+      {mutation.isPending ? (
+        <div className="flex items-center gap-2 text-sm text-text-secondary">
+          <Loader2 className="h-4 w-4 animate-spin text-accent" />
+          AI генерує пояснення...
+        </div>
+      ) : (
+        <Button
+          className="bg-accent/10 text-accent hover:bg-accent/20 border-accent/30"
+          onClick={() => mutation.mutate({ moduleTitle, topic })}
+        >
+          <Sparkles className="h-4 w-4" />
+          Пояснити тему
+        </Button>
+      )}
+      {mutation.error ? (
+        <p className="mt-2 rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+          {mutation.error.message}
+        </p>
+      ) : null}
+    </div>
+  );
+}
 
 export function ModulePage() {
   const { slug = '' } = useParams();
@@ -51,7 +97,7 @@ export function ModulePage() {
             className="flex w-full items-start gap-2 rounded-md px-2 py-2 text-left text-sm text-text-secondary transition hover:bg-bg-elevated hover:text-text-primary"
             onClick={() => setOpenTopic(index)}
           >
-            <span className={cn('mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border', isTopicDone(module.slug, index) && 'border-emerald-500 bg-emerald-500 text-white')}>
+            <span className={cn('mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border text-xs', isTopicDone(module.slug, index) && 'border-emerald-500 bg-emerald-500 text-white')}>
               {isTopicDone(module.slug, index) ? <Check className="h-3.5 w-3.5" /> : index + 1}
             </span>
             <span className="line-clamp-2">{topic}</span>
@@ -115,16 +161,14 @@ export function ModulePage() {
                 {isOpen ? (
                   <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
                     <div className="border-t border-border p-4">
-                      <p className="text-sm leading-6 text-text-secondary">
-                        Відміть тему після самостійного опрацювання. Для пояснення відкрий AI Teacher праворуч і попроси приклад саме по цій темі.
-                      </p>
+                      <TopicExplanation moduleTitle={module.title} topic={topic} />
                       <div className="mt-4 flex flex-wrap gap-2">
                         <Button
                           className={done ? 'border-emerald-500/40 bg-emerald-500/15 text-emerald-100 hover:bg-emerald-500/20' : 'bg-bg-elevated hover:bg-border-hover'}
                           onClick={() => markTopicDone(module.slug, index)}
                         >
                           <Check className="h-4 w-4" />
-                          {done ? 'Вивчено' : 'Відмітити як вивчене'}
+                          {done ? 'Вивчено ✓' : 'Відмітити як вивчене'}
                         </Button>
                       </div>
                     </div>

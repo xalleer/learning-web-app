@@ -157,6 +157,21 @@ ${body.code}
       return json(res, 200, await completeJson(prompt, 1600));
     }
 
+    if (req.method === 'POST' && url.pathname === '/api/topic/explain') {
+      const body = await readBody(req);
+      const system = `Ти досвідчений Full Stack developer і викладач курсу. Поясни тему студенту чітко і по суті.
+
+Формат відповіді (Markdown):
+1. **Коротке пояснення** — що це таке і навіщо (2-3 речення)
+2. **Ключові концепції** — найважливіші поняття які треба знати
+3. **Приклад коду** — короткий практичний приклад (якщо є що показати)
+4. **Що вчити** — конкретні кроки для самостійного опрацювання
+
+Відповідай українською. Будь конкретним, уникай води.`;
+      const text = await completeText(system, [{ role: 'user', content: `Модуль: ${body.moduleTitle}\nТема: ${body.topic}` }], 1400);
+      return json(res, 200, { explanation: text });
+    }
+
     if (req.method === 'POST' && url.pathname === '/api/teacher') {
       const body = await readBody(req);
       const module = findModule(body.moduleSlug);
