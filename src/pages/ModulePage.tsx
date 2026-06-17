@@ -12,6 +12,7 @@ import { Markdown } from '@/shared/Markdown';
 import { cn, percent } from '@/shared/utils';
 
 const EMPTY_RESULTS: [] = [];
+const EMPTY_TOPICS: number[] = [];
 
 function TopicExplanation({ moduleTitle, topic }: { moduleTitle: string; topic: string }) {
   const [explanation, setExplanation] = useState<string | null>(null);
@@ -61,15 +62,16 @@ export function ModulePage() {
   const module = getModuleBySlug(slug);
   const [openTopic, setOpenTopic] = useState(0);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const isTopicDone = useAppStore((state) => state.isTopicDone);
+  const progress = useAppStore((state) => state.progress);
   const markTopicDone = useAppStore((state) => state.markTopicDone);
   const getModuleProgress = useAppStore((state) => state.getModuleProgress);
-  const quizResult = useAppStore((state) => module ? state.getQuizResult(module.slug) : null);
-  const practiceResults = useAppStore((state) => module ? state.progress.practiceResults[module.slug] ?? EMPTY_RESULTS : EMPTY_RESULTS);
 
   if (!module) return <Navigate to="/" replace />;
 
-  const topicsDone = module.topics.filter((_, index) => isTopicDone(module.slug, index)).length;
+  const completedTopics = progress.completedTopics[module.slug] ?? EMPTY_TOPICS;
+  const quizResult = progress.quizResults[module.slug] ?? null;
+  const practiceResults = progress.practiceResults[module.slug] ?? EMPTY_RESULTS;
+  const topicsDone = completedTopics.length;
   const topicsReady = topicsDone === module.topics.length;
   const moduleProgress = getModuleProgress(module.slug);
   const icon = ICON_MAP[module.icon];
@@ -97,8 +99,8 @@ export function ModulePage() {
             className="flex w-full items-start gap-2 rounded-md px-2 py-2 text-left text-sm text-text-secondary transition hover:bg-bg-elevated hover:text-text-primary"
             onClick={() => setOpenTopic(index)}
           >
-            <span className={cn('mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border text-xs', isTopicDone(module.slug, index) && 'border-emerald-500 bg-emerald-500 text-white')}>
-              {isTopicDone(module.slug, index) ? <Check className="h-3.5 w-3.5" /> : index + 1}
+            <span className={cn('mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border text-xs', completedTopics.includes(index) && 'border-emerald-500 bg-emerald-500 text-white')}>
+              {completedTopics.includes(index) ? <Check className="h-3.5 w-3.5" /> : index + 1}
             </span>
             <span className="line-clamp-2">{topic}</span>
           </button>
@@ -144,7 +146,7 @@ export function ModulePage() {
         </div>
         {module.topics.map((topic, index) => {
           const isOpen = openTopic === index;
-          const done = isTopicDone(module.slug, index);
+          const done = completedTopics.includes(index);
           return (
             <Card key={topic} className="overflow-hidden">
               <button className="flex w-full items-center justify-between gap-3 p-4 text-left" onClick={() => setOpenTopic(isOpen ? -1 : index)}>

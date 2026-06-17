@@ -5,6 +5,8 @@ import type { ModuleStatus, PracticeResult, Progress, QuizResult, TeacherMessage
 import { todayKey, yesterdayKey } from '@/shared/utils';
 
 const syncKeyStorage = 'fsdev-sync-key';
+let loadRequestId = 0;
+let lastLocalChangeAt = 0;
 
 function defaultProgress(): Progress {
   const now = new Date().toISOString();
@@ -16,6 +18,28 @@ function defaultProgress(): Progress {
     lastActivityAt: now,
     streakDays: 0,
     lastStreakDate: '',
+  };
+}
+
+function normalizeProgress(progress: Progress | null | undefined): Progress {
+  const fallback = defaultProgress();
+  if (!progress || typeof progress !== 'object') return fallback;
+
+  const completedTopics: Progress['completedTopics'] = {};
+  for (const [moduleSlug, topics] of Object.entries(progress.completedTopics || {})) {
+    completedTopics[moduleSlug] = Array.isArray(topics)
+      ? [...new Set(topics.map((topic) => Number(topic)).filter(Number.isFinite))].sort((a, b) => a - b)
+      : [];
+  }
+
+  return {
+    completedTopics,
+    quizResults: progress.quizResults && typeof progress.quizResults === 'object' ? progress.quizResults : {},
+    practiceResults: progress.practiceResults && typeof progress.practiceResults === 'object' ? progress.practiceResults : {},
+    startedAt: progress.startedAt || fallback.startedAt,
+    lastActivityAt: progress.lastActivityAt || fallback.lastActivityAt,
+    streakDays: Number.isFinite(progress.streakDays) ? progress.streakDays : 0,
+    lastStreakDate: progress.lastStreakDate || '',
   };
 }
 
@@ -36,6 +60,7 @@ function touch(progress: Progress): Progress {
 interface AppStore {
   userId: string;
   isProgressLoading: boolean;
+  hasLoadedProgress: boolean;
   progress: Progress;
   teacherMessages: Record<string, TeacherMessage[]>;
   setUserId: (userId: string) => Promise<void>;
@@ -55,31 +80,42 @@ interface AppStore {
 export const useAppStore = create<AppStore>((set, get) => ({
   userId: window.localStorage.getItem(syncKeyStorage) || 'default',
   isProgressLoading: true,
+  hasLoadedProgress: false,
   progress: defaultProgress(),
   teacherMessages: {},
 
   async setUserId(userId) {
     const cleanUserId = userId.trim() || 'default';
     window.localStorage.setItem(syncKeyStorage, cleanUserId);
-    set({ userId: cleanUserId, isProgressLoading: true });
+    set({ userId: cleanUserId, isProgressLoading: true, hasLoadedProgress: false });
     await get().loadProgress();
   },
 
   async loadProgress() {
+    const requestId = ++loadRequestId;
+    const requestedUserId = get().userId;
+    const loadStartedAt = Date.now();
     set({ isProgressLoading: true });
     try {
-      const { progress } = await loadRemoteProgress(get().userId);
-      set({ progress: progress ?? defaultProgress(), isProgressLoading: false });
+      const { progress } = await loadRemoteProgress(requestedUserId);
+      if (requestId !== loadRequestId || requestedUserId !== get().userId) return;
+      if (lastLocalChangeAt > loadStartedAt) {
+        set({ isProgressLoading: false, hasLoadedProgress: true });
+        return;
+      }
+      set({ progress: normalizeProgress(progress), isProgressLoading: false, hasLoadedProgress: true });
     } catch (error) {
       console.warn(error);
-      set({ isProgressLoading: false });
+      if (requestId === loadRequestId) set({ isProgressLoading: false, hasLoadedProgress: true });
     }
   },
 
   async persistProgress(progress) {
+    lastLocalChangeAt = Date.now();
+    const userId = get().userId;
     set({ progress });
     try {
-      await saveRemoteProgress(get().userId, progress);
+      await saveRemoteProgress(userId, progress);
     } catch (error) {
       console.warn(error);
     }

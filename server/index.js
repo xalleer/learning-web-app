@@ -1,13 +1,12 @@
 import http from 'node:http';
-import { existsSync, readFileSync, mkdirSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import Database from 'better-sqlite3';
-import OpenAI from 'openai';
+import { getProgressCollection } from '../api/_lib/mongo.js';
+import { completeJson, completeText, findModule } from '../api/_lib/openai.js';
+import { handleError, handleOptions, readBody, sendJson } from '../api/_lib/http.js';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const dataDir = join(root, 'server', 'data');
-mkdirSync(dataDir, { recursive: true });
 
 const envPath = join(root, '.env');
 if (existsSync(envPath)) {
@@ -23,92 +22,30 @@ if (existsSync(envPath)) {
   }
 }
 
-const db = new Database(join(dataDir, 'progress.sqlite'));
-db.pragma('journal_mode = WAL');
-db.exec(`
-  CREATE TABLE IF NOT EXISTS progress (
-    user_id TEXT PRIMARY KEY,
-    payload TEXT NOT NULL,
-    updated_at TEXT NOT NULL
-  );
-`);
-
-const course = JSON.parse(readFileSync(join(root, 'course-content.json'), 'utf8'));
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || 'missing-key' });
-const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 const port = Number(process.env.PORT || 8787);
-
-function json(res, status, payload) {
-  res.writeHead(status, {
-    'content-type': 'application/json; charset=utf-8',
-    'access-control-allow-origin': '*',
-    'access-control-allow-methods': 'GET,POST,OPTIONS',
-    'access-control-allow-headers': 'content-type',
-  });
-  res.end(JSON.stringify(payload));
-}
-
-async function readBody(req) {
-  const chunks = [];
-  for await (const chunk of req) chunks.push(chunk);
-  const raw = Buffer.concat(chunks).toString('utf8');
-  return raw ? JSON.parse(raw) : {};
-}
-
-function requireKey() {
-  if (!process.env.OPENAI_API_KEY) {
-    const error = new Error('OPENAI_API_KEY is not set. Add it to your shell or .env before using AI features.');
-    error.status = 500;
-    throw error;
-  }
-}
-
-async function completeJson(prompt, maxTokens = 1200) {
-  requireKey();
-  const response = await openai.chat.completions.create({
-    model,
-    temperature: 0.2,
-    max_tokens: maxTokens,
-    response_format: { type: 'json_object' },
-    messages: [{ role: 'user', content: prompt }],
-  });
-  const content = response.choices[0]?.message?.content;
-  if (!content) throw new Error('OpenAI returned an empty response.');
-  return JSON.parse(content);
-}
-
-async function completeText(system, messages, maxTokens = 1200) {
-  requireKey();
-  const response = await openai.chat.completions.create({
-    model,
-    temperature: 0.5,
-    max_tokens: maxTokens,
-    messages: [{ role: 'system', content: system }, ...messages],
-  });
-  return response.choices[0]?.message?.content || '';
-}
-
-function findModule(slug) {
-  return course.modules.find((module) => module.slug === slug || String(module.id) === String(slug));
-}
 
 const server = http.createServer(async (req, res) => {
   try {
-    if (req.method === 'OPTIONS') return json(res, 204, {});
+    if (handleOptions(req, res)) return;
     const url = new URL(req.url || '/', `http://${req.headers.host}`);
 
     if (req.method === 'GET' && url.pathname.startsWith('/api/progress/')) {
       const userId = decodeURIComponent(url.pathname.split('/').pop() || 'default');
-      const row = db.prepare('SELECT payload FROM progress WHERE user_id = ?').get(userId);
-      return json(res, 200, { progress: row ? JSON.parse(row.payload) : null });
+      const collection = await getProgressCollection();
+      const row = await collection.findOne({ userId }, { projection: { _id: 0, payload: 1 } });
+      return sendJson(res, 200, { progress: row?.payload || null });
     }
 
     if (req.method === 'POST' && url.pathname.startsWith('/api/progress/')) {
       const userId = decodeURIComponent(url.pathname.split('/').pop() || 'default');
       const body = await readBody(req);
-      db.prepare('INSERT INTO progress (user_id, payload, updated_at) VALUES (?, ?, ?) ON CONFLICT(user_id) DO UPDATE SET payload = excluded.payload, updated_at = excluded.updated_at')
-        .run(userId, JSON.stringify(body.progress), new Date().toISOString());
-      return json(res, 200, { ok: true });
+      const collection = await getProgressCollection();
+      await collection.updateOne(
+        { userId },
+        { $set: { payload: body.progress, updatedAt: new Date() }, $setOnInsert: { createdAt: new Date() } },
+        { upsert: true },
+      );
+      return sendJson(res, 200, { ok: true });
     }
 
     if (req.method === 'POST' && url.pathname === '/api/quiz/check') {
@@ -128,7 +65,7 @@ const server = http.createServer(async (req, res) => {
   "feedback": "2-3 речення",
   "fullAnswer": "Повна правильна відповідь, 3-5 речень"
 }`;
-      return json(res, 200, await completeJson(prompt, 1000));
+      return sendJson(res, 200, await completeJson(prompt, 1000));
     }
 
     if (req.method === 'POST' && url.pathname === '/api/practice/review') {
@@ -154,7 +91,7 @@ ${body.code}
   "goodParts": "Що зроблено добре",
   "improvements": "Конкретні покращення з прикладами коду"
 }`;
-      return json(res, 200, await completeJson(prompt, 1600));
+      return sendJson(res, 200, await completeJson(prompt, 1600));
     }
 
     if (req.method === 'POST' && url.pathname === '/api/topic/explain') {
@@ -169,7 +106,7 @@ ${body.code}
 
 Відповідай українською. Будь конкретним, уникай води.`;
       const text = await completeText(system, [{ role: 'user', content: `Модуль: ${body.moduleTitle}\nТема: ${body.topic}` }], 1400);
-      return json(res, 200, { explanation: text });
+      return sendJson(res, 200, { explanation: text });
     }
 
     if (req.method === 'POST' && url.pathname === '/api/teacher') {
@@ -189,13 +126,12 @@ ${topics.join('\n')}
 - 3-5 абзаців максимум`;
       const history = (body.conversationHistory || []).slice(-10);
       const messages = [...history, { role: 'user', content: body.userMessage }];
-      return json(res, 200, { message: await completeText(system, messages, 1200) });
+      return sendJson(res, 200, { message: await completeText(system, messages, 1200) });
     }
 
-    return json(res, 404, { error: 'Not found' });
+    return sendJson(res, 404, { error: 'Not found' });
   } catch (error) {
-    const status = error.status || 500;
-    return json(res, status, { error: error.message || 'Server error' });
+    return handleError(res, error);
   }
 });
 
