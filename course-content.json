@@ -1,0 +1,2398 @@
+{
+  "meta": {
+    "title": "Full Stack Developer Roadmap 2026",
+    "totalModules": 29,
+    "estimatedMonths": 18
+  },
+  "modules": [
+    {
+      "id": 0,
+      "slug": "setup",
+      "title": "Setup розробника",
+      "icon": "devicon-vscode-plain",
+      "color": "#007ACC",
+      "topics": [
+        "Операційна система: файлова система, шляхи, права доступу",
+        "Змінні середовища, PATH, shell (bash/zsh)",
+        "VS Code / Cursor / WebStorm — налаштування",
+        "Git та GitHub — базова конфігурація",
+        "Node.js через nvm",
+        "pnpm / npm / yarn — різниця",
+        "Docker — базові поняття",
+        "Postman / Insomnia",
+        "TablePlus / DBeaver",
+        "SSH ключі"
+      ],
+      "quiz": [
+        {
+          "id": "q0_1",
+          "question": "Що таке PATH в операційній системі?",
+          "type": "open",
+          "expectedKeywords": ["змінна середовища", "шляхи", "команди", "виконувані файли", "директорії"],
+          "hint": "Подумай, як ОС знаходить команду коли ти пишеш git або node в терміналі"
+        },
+        {
+          "id": "q0_2",
+          "question": "Для чого потрібен nvm?",
+          "type": "open",
+          "expectedKeywords": ["версії", "node", "перемикати", "управління", "кілька проектів"],
+          "hint": "Уяви що один проект потребує Node 16, а інший Node 20"
+        },
+        {
+          "id": "q0_3",
+          "question": "Чим відрізняється pnpm від npm?",
+          "type": "open",
+          "expectedKeywords": ["швидкість", "диск", "hard link", "symlink", "node_modules", "дедублікація"],
+          "hint": "Зверни увагу на те, як зберігаються пакети на диску"
+        },
+        {
+          "id": "q0_4",
+          "question": "Що таке SSH ключ і для чого він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["автентифікація", "публічний", "приватний", "пароль", "безпека", "github", "сервер"],
+          "hint": "Як ти підключаєшся до GitHub або сервера без пароля кожного разу?"
+        },
+        {
+          "id": "q0_5",
+          "question": "Чим commit відрізняється від push?",
+          "type": "open",
+          "expectedKeywords": ["локально", "remote", "репозиторій", "зберегти", "відправити"],
+          "hint": "Де зберігається commit? А де після push?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p0_1",
+          "title": "Налаштування середовища",
+          "description": "Встанови nvm, Node.js LTS, pnpm. Створи GitHub репозиторій, налаштуй SSH ключ. Зроби перший коміт з файлом README.md",
+          "type": "terminal",
+          "checkpoints": [
+            "nvm --version виводить версію",
+            "node --version виводить 20.x або новіше",
+            "pnpm --version виводить версію",
+            "ssh -T git@github.com повертає успішну відповідь",
+            "git log показує хоча б один коміт"
+          ],
+          "submitType": "code",
+          "codeLanguage": "bash"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "slug": "html",
+      "title": "HTML",
+      "icon": "devicon-html5-plain",
+      "color": "#E34F26",
+      "topics": [
+        "Базова структура: html, head, body, title, meta, favicon, viewport",
+        "Семантика: header, main, section, article, aside, nav, footer",
+        "Форми: form, input, textarea, select, checkbox, radio, button, label, fieldset, legend",
+        "Accessibility: alt, aria-label, aria-labelledby, keyboard navigation, focus state, screen readers",
+        "SEO: meta title, meta description, Open Graph, structured data, canonical URL"
+      ],
+      "quiz": [
+        {
+          "id": "q1_1",
+          "question": "Чим <section> відрізняється від <div>?",
+          "type": "open",
+          "expectedKeywords": ["семантика", "значення", "screen reader", "структура", "контент", "безглуздий"],
+          "hint": "Що означає кожен тег для браузера і для пошукових систем?"
+        },
+        {
+          "id": "q1_2",
+          "question": "Для чого потрібен тег <label> у формі?",
+          "type": "open",
+          "expectedKeywords": ["accessibility", "input", "клік", "зв'язок", "screen reader", "for", "id"],
+          "hint": "Що відбувається коли клікаєш на текст біля чекбокса?"
+        },
+        {
+          "id": "q1_3",
+          "question": "Що таке semantic HTML і чому він важливий?",
+          "type": "open",
+          "expectedKeywords": ["значення", "пошукові системи", "screen reader", "accessibility", "SEO", "структура"],
+          "hint": "Подумай про людей з обмеженими можливостями і про Google"
+        },
+        {
+          "id": "q1_4",
+          "question": "Навіщо потрібен атрибут alt у тега <img>?",
+          "type": "open",
+          "expectedKeywords": ["accessibility", "screen reader", "зображення", "опис", "SEO", "не завантажилось"],
+          "hint": "Що бачить незрячий користувач? Що бачить Google?"
+        },
+        {
+          "id": "q1_5",
+          "question": "Що таке Open Graph і де він використовується?",
+          "type": "open",
+          "expectedKeywords": ["соціальні мережі", "preview", "title", "description", "image", "Facebook", "Twitter", "meta"],
+          "hint": "Що відображається коли ділишся посиланням у Telegram або Facebook?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p1_1",
+          "title": "Landing Page",
+          "description": "Зроби семантичну landing page для уявного SaaS продукту. Має бути: header з nav, hero section, features section (мінімум 3), pricing section, footer. Без CSS — тільки чистий HTML з правильною семантикою.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "html",
+          "reviewCriteria": [
+            "Правильна структура: html > head > body",
+            "Використані семантичні теги (header, main, section, footer, nav, article)",
+            "Є мета теги (charset, viewport, title, description)",
+            "У зображень є alt атрибути",
+            "Форми мають label для кожного input",
+            "Немає дивізоїтів (все в div без причини)"
+          ]
+        },
+        {
+          "id": "p1_2",
+          "title": "Contact Form",
+          "description": "Зроби форму зворотного зв'язку: ім'я, email, телефон (необов'язковий), тема (select з варіантами), повідомлення (textarea), згода на обробку даних (checkbox). Правильна accessibility: всі label, aria атрибути де треба.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "html",
+          "reviewCriteria": [
+            "Кожен input має пов'язаний label (через for/id або вкладений)",
+            "Required поля мають атрибут required",
+            "Email field має type='email'",
+            "Телефон має type='tel'",
+            "Є fieldset і legend для групи radio/checkbox",
+            "Форма має action та method атрибути",
+            "Кнопка submit має тип type='submit'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "css",
+      "title": "CSS",
+      "icon": "devicon-css3-plain",
+      "color": "#1572B6",
+      "topics": [
+        "Selectors, specificity, cascade, inheritance",
+        "Box model: margin, padding, border, content",
+        "Display: block, inline, inline-block, none",
+        "Position: static, relative, absolute, fixed, sticky",
+        "Overflow, z-index",
+        "Flexbox: flex-direction, justify-content, align-items, flex-wrap, gap",
+        "Grid: grid-template, grid-area, gap, auto-fill, auto-fit",
+        "Responsive layout: media queries, breakpoints",
+        "Mobile first підхід",
+        "Container queries",
+        "CSS variables (custom properties)",
+        "Design tokens: colors, spacing, typography, shadows, radius",
+        "BEM методологія",
+        "Utility-first CSS"
+      ],
+      "quiz": [
+        {
+          "id": "q2_1",
+          "question": "Чим position: relative відрізняється від position: absolute?",
+          "type": "open",
+          "expectedKeywords": ["потік", "document flow", "батьківський", "відносно", "зміщення", "contained"],
+          "hint": "Відносно чого позиціонується кожен з них? І чи займають вони місце в потоці?"
+        },
+        {
+          "id": "q2_2",
+          "question": "Що таке specificity і як вона рахується?",
+          "type": "open",
+          "expectedKeywords": ["вага", "selector", "id", "class", "element", "пріоритет", "перевага"],
+          "hint": "Чому #header { color: red } переможе .header { color: blue }?"
+        },
+        {
+          "id": "q2_3",
+          "question": "Коли краще використовувати Grid, а коли Flexbox?",
+          "type": "open",
+          "expectedKeywords": ["двовимірний", "одновимірний", "рядки", "колонки", "layout", "компонент"],
+          "hint": "Flexbox — один напрямок. Grid — два напрямки"
+        },
+        {
+          "id": "q2_4",
+          "question": "Що таке mobile first підхід у CSS?",
+          "type": "open",
+          "expectedKeywords": ["min-width", "базові стилі", "мобільний", "розширення", "performance", "media query"],
+          "hint": "З якого breakpoint починаємо писати стилі?"
+        },
+        {
+          "id": "q2_5",
+          "question": "Для чого потрібні CSS variables (custom properties)?",
+          "type": "open",
+          "expectedKeywords": ["перевикористання", "тема", "dark mode", "значення", "змінювати", "design tokens"],
+          "hint": "Уяви що треба змінити основний колір додатку в 50 місцях"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p2_1",
+          "title": "Dashboard Layout",
+          "description": "Зроби layout для admin dashboard: sidebar (фіксована ширина 240px), header (full width), main content area. Має бути responsive — на мобільному sidebar ховається. Використай CSS Grid для основного layout і Flexbox для компонентів всередині.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "css",
+          "reviewCriteria": [
+            "CSS Grid використовується для основного layout (sidebar + content)",
+            "Flexbox використовується для компонентів всередині (navbar, cards)",
+            "Є CSS variables для кольорів і spacing",
+            "Mobile: sidebar прихований або в drawer",
+            "Немає магічних чисел — всі відступи через variables",
+            "БЕМ або utility-first нейменування класів"
+          ]
+        },
+        {
+          "id": "p2_2",
+          "title": "Pricing Cards",
+          "description": "Зроби секцію pricing з 3 картками (Basic, Pro, Enterprise). Одна картка — highlighted (популярна). Responsive: на мобільному вертикально, на десктопі горизонтально. Без JavaScript.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "css",
+          "reviewCriteria": [
+            "CSS Grid або Flexbox для розміщення карток",
+            "Highlighted картка візуально виділена",
+            "Responsive без JavaScript",
+            "Hover стан на кнопках",
+            "CSS variables для кольорів бренду"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "css-animations",
+      "title": "CSS Animations",
+      "icon": "devicon-css3-plain",
+      "color": "#FF6B6B",
+      "topics": [
+        "Transitions: property, duration, timing-function, delay",
+        "Hover effects з transitions",
+        "@keyframes: from/to, процентні кроки",
+        "animation-duration, delay, fill-mode, iteration-count, direction",
+        "Transform: translate, scale, rotate, skew, transform-origin",
+        "Performance: що можна анімувати (transform, opacity)",
+        "will-change — коли і як використовувати",
+        "GPU rendering, layout thrashing",
+        "prefers-reduced-motion media query"
+      ],
+      "quiz": [
+        {
+          "id": "q3_1",
+          "question": "Чому transform краще за top/left для анімацій з точки зору performance?",
+          "type": "open",
+          "expectedKeywords": ["reflow", "repaint", "compositor", "GPU", "layout", "шар"],
+          "hint": "Що відбувається в browser rendering pipeline при зміні top? А при transform?"
+        },
+        {
+          "id": "q3_2",
+          "question": "Що робить animation-fill-mode: forwards?",
+          "type": "open",
+          "expectedKeywords": ["стан", "кінець", "зберігає", "повертається", "після завершення"],
+          "hint": "Що відбувається з елементом після того як анімація закінчилась?"
+        },
+        {
+          "id": "q3_3",
+          "question": "Для чого потрібен will-change і які є ризики його використання?",
+          "type": "open",
+          "expectedKeywords": ["оптимізація", "GPU", "пам'ять", "шар", "заздалегідь", "зловживання"],
+          "hint": "will-change підказує браузеру... але це не безкоштовно"
+        },
+        {
+          "id": "q3_4",
+          "question": "Які CSS властивості найкраще анімувати і чому?",
+          "type": "open",
+          "expectedKeywords": ["transform", "opacity", "compositor", "layout", "paint", "performance"],
+          "hint": "Думай про browser rendering pipeline: Layout → Paint → Composite"
+        },
+        {
+          "id": "q3_5",
+          "question": "Чим transition відрізняється від animation?",
+          "type": "open",
+          "expectedKeywords": ["тригер", "стан", "keyframes", "автоматично", "hover", "контроль", "кроки"],
+          "hint": "Transition потребує зовнішній тригер. Animation — ні"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p3_1",
+          "title": "UI Animation Kit",
+          "description": "Зроби набір CSS анімацій: 1) Skeleton loader для картки (shimmer ефект), 2) Spinner loader, 3) Button з ripple ефектом на клік, 4) Modal появляється з fade + scale, 5) Toast notification вилітає знизу. Всі анімації мають враховувати prefers-reduced-motion.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "css",
+          "reviewCriteria": [
+            "Skeleton loader використовує @keyframes з градієнтом",
+            "Spinner використовує transform: rotate і не layout properties",
+            "Modal анімація через transform + opacity, не display",
+            "Toast використовує translateY",
+            "@media (prefers-reduced-motion: reduce) відключає або спрощує анімації",
+            "will-change використовується обережно (тільки де треба)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "slug": "javascript",
+      "title": "JavaScript",
+      "icon": "devicon-javascript-plain",
+      "color": "#F7DF1E",
+      "topics": [
+        "Variables: var, let, const — різниця і scope",
+        "Functions: declaration, expression, arrow functions",
+        "Arrays: методи map, filter, reduce, forEach, find, some, every",
+        "Objects: destructuring, spread, rest, optional chaining",
+        "Loops: for, for...of, for...in, while",
+        "Scope, closures, hoisting",
+        "this — контекст виконання",
+        "Prototype chain, classes",
+        "ES Modules: import/export",
+        "Callbacks, Promise, async/await",
+        "Event loop, microtasks, macrotasks",
+        "DOM: querySelector, addEventListener, event delegation",
+        "Forms: submit, preventDefault, FormData",
+        "localStorage, sessionStorage",
+        "fetch API, обробка помилок"
+      ],
+      "quiz": [
+        {
+          "id": "q4_1",
+          "question": "Що таке closure і наведи практичний приклад де він корисний?",
+          "type": "open",
+          "expectedKeywords": ["функція", "зовнішній scope", "доступ", "після виконання", "запам'ятовує"],
+          "hint": "Closure — це функція яка 'пам'ятає' змінні з scope де вона була створена"
+        },
+        {
+          "id": "q4_2",
+          "question": "Чим let відрізняється від var?",
+          "type": "open",
+          "expectedKeywords": ["block scope", "function scope", "hoisting", "temporal dead zone", "перевизначення"],
+          "hint": "Спробуй використати let і var в if блоці — що доступно зовні?"
+        },
+        {
+          "id": "q4_3",
+          "question": "Що таке event loop і як він пов'язаний з асинхронним кодом?",
+          "type": "open",
+          "expectedKeywords": ["call stack", "task queue", "microtask", "однопоточний", "неблокуючий", "callback"],
+          "hint": "JavaScript однопоточний — як він виконує асинхронний код?"
+        },
+        {
+          "id": "q4_4",
+          "question": "Чим microtask відрізняється від macrotask? Наведи приклади кожного.",
+          "type": "open",
+          "expectedKeywords": ["Promise", "setTimeout", "пріоритет", "черга", "queueMicrotask", "MutationObserver"],
+          "hint": "Promise.then() — це microtask. setTimeout — macrotask. Яка черга виконується першою?"
+        },
+        {
+          "id": "q4_5",
+          "question": "Як працює event delegation і навіщо він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["bubbling", "батьківський", "динамічні елементи", "пам'ять", "один listener", "event.target"],
+          "hint": "Уяви список з 1000 елементів — вішати listener на кожен?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p4_1",
+          "title": "Drag & Drop Kanban Board",
+          "description": "Зроби Kanban board без фреймворків: 3 колонки (Todo, In Progress, Done), картки можна drag&drop між колонками, додавати нові картки через форму, видаляти картки. Стан зберігати в localStorage. Тільки vanilla JS + HTML + CSS.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "javascript",
+          "reviewCriteria": [
+            "Drag and Drop через HTML5 Drag API або mouse events",
+            "Event delegation для карток (не listener на кожну картку)",
+            "Стан в localStorage — після перезавантаження картки зберігаються",
+            "Немає прямої маніпуляції DOM без state — спочатку змінюємо state, потім render",
+            "Функції чисті де можливо",
+            "Немає var — тільки let/const",
+            "Обробка edge cases: пуста картка не додається"
+          ]
+        },
+        {
+          "id": "p4_2",
+          "title": "Weather App",
+          "description": "Зроби weather app з Open-Meteo API (безкоштовний, без ключа). Пошук міста (geocoding API), поточна погода, прогноз на 7 днів. Обробка помилок: місто не знайдено, мережа недоступна. Loading стан.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "javascript",
+          "reviewCriteria": [
+            "async/await для fetch (не .then() chains)",
+            "try/catch для обробки помилок мережі",
+            "Loading state показується під час запиту",
+            "Error state показується при помилці",
+            "Debounce на input (не fetch при кожному символі)",
+            "AbortController для скасування попередніх запитів"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "slug": "typescript",
+      "title": "TypeScript",
+      "icon": "devicon-typescript-plain",
+      "color": "#3178C6",
+      "topics": [
+        "Types: string, number, boolean, null, undefined, any, unknown, never",
+        "Interfaces vs types — коли що використовувати",
+        "Union types (|) і intersection types (&)",
+        "Enums: const enum vs enum",
+        "Generics: базові, constraints, default values",
+        "Type guards: typeof, instanceof, custom",
+        "Utility types: Partial, Required, Pick, Omit, Record, Readonly, ReturnType, Parameters",
+        "Mapped types",
+        "Conditional types",
+        "Template literal types",
+        "infer keyword",
+        "Branded types для domain safety",
+        "DTO типізація",
+        "Типізований API client"
+      ],
+      "quiz": [
+        {
+          "id": "q5_1",
+          "question": "Чим type відрізняється від interface в TypeScript? Коли що використовувати?",
+          "type": "open",
+          "expectedKeywords": ["extends", "merge", "union", "intersection", "declaration merging", "computed"],
+          "hint": "Interface можна розширити через declaration merging. Type — ні. Але type може описати union"
+        },
+        {
+          "id": "q5_2",
+          "question": "Що таке generic тип і наведи приклад де без нього не обійтись?",
+          "type": "open",
+          "expectedKeywords": ["параметр типу", "перевикористання", "будь-який тип", "безпечно", "шаблон"],
+          "hint": "Як написати функцію identity яка повертає те що отримала — і при цьому зберігає тип?"
+        },
+        {
+          "id": "q5_3",
+          "question": "Для чого Partial<T> і наведи реальний usecase?",
+          "type": "open",
+          "expectedKeywords": ["необов'язкові", "всі поля", "update", "patch", "форма"],
+          "hint": "Уяви функцію updateUser яка приймає тільки ті поля які треба оновити"
+        },
+        {
+          "id": "q5_4",
+          "question": "Що таке type guard і навіщо він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["звуження", "narrowing", "перевірка", "union", "тип", "runtime"],
+          "hint": "Маєш union type string | number — як TypeScript дізнається який саме тип?"
+        },
+        {
+          "id": "q5_5",
+          "question": "Як працює conditional type в TypeScript? Наведи приклад.",
+          "type": "open",
+          "expectedKeywords": ["extends", "тернарний", "умова", "infer", "тип залежить від"],
+          "hint": "T extends string ? 'yes' : 'no' — це conditional type"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p5_1",
+          "title": "Типізований API Client",
+          "description": "Зроби типізований HTTP client для REST API. Має бути: generic метод get<T>, post<T, B>, put<T, B>, delete<T>. Типізована обробка помилок (ApiError клас). Interceptors для auth header. Типи для pagination: PaginatedResponse<T>. Власні utility types.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Generic методи — TypeScript inference працює без явного вказування типу",
+            "ApiError extends Error з полями status, code, message",
+            "PaginatedResponse<T> generic type",
+            "Немає any — тільки unknown де треба",
+            "Interceptors типізовані",
+            "Власні utility types (наприклад ApiResponse<T>)",
+            "Branded types для ID (UserId, PostId — не просто string)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "slug": "git",
+      "title": "Git",
+      "icon": "devicon-git-plain",
+      "color": "#F05032",
+      "topics": [
+        "init, clone, add, commit, push, pull",
+        "Branching: branch, checkout, switch",
+        "Merge: fast-forward, three-way merge, merge commits",
+        "Rebase: interactive rebase, squash, fixup",
+        "Cherry-pick",
+        "Stash: save, pop, list, apply",
+        "Reset: soft, mixed, hard",
+        "Revert vs reset",
+        "Reflog — як повернути втрачені коміти",
+        "Bisect — пошук бага",
+        "Git hooks",
+        "Git Flow vs trunk-based development",
+        "Pull requests і code review",
+        "Conventional commits"
+      ],
+      "quiz": [
+        {
+          "id": "q6_1",
+          "question": "Чим merge відрізняється від rebase? Коли що краще використовувати?",
+          "type": "open",
+          "expectedKeywords": ["лінійна", "history", "merge commit", "перезапис", "конфлікти", "команда"],
+          "hint": "Merge зберігає всю історію. Rebase переписує її. Які плюси і мінуси кожного?"
+        },
+        {
+          "id": "q6_2",
+          "question": "Чим git reset --hard відрізняється від git revert?",
+          "type": "open",
+          "expectedKeywords": ["видаляє", "новий коміт", "shared branch", "history", "безпечний", "перезапис"],
+          "hint": "Якщо вже зробив push — що безпечніше використати?"
+        },
+        {
+          "id": "q6_3",
+          "question": "Для чого git stash і коли він корисний?",
+          "type": "open",
+          "expectedKeywords": ["тимчасово", "зберегти", "перемикнутись", "uncommitted", "чистий working directory"],
+          "hint": "Ти в середині фічі, треба терміново перемкнутись на інший branch"
+        },
+        {
+          "id": "q6_4",
+          "question": "Що таке pull request і навіщо він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["code review", "merge", "обговорення", "команда", "перевірка", "якість"],
+          "hint": "PR — це не просто технічна операція злиття, це процес..."
+        },
+        {
+          "id": "q6_5",
+          "question": "Для чого потрібен git reflog і як він рятує?",
+          "type": "open",
+          "expectedKeywords": ["всі операції", "втрачені коміти", "відновити", "hard reset", "HEAD переміщення"],
+          "hint": "Зробив git reset --hard і зрозумів що видалив потрібне. Що робити?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p6_1",
+          "title": "Git Workflow Simulation",
+          "description": "Практика Git workflow: 1) Створи repo з main branch і початковим кодом, 2) Зроби feature branch, додай коміти з conventional commits форматом, 3) Зроби interactive rebase щоб squash всі в один, 4) Симулюй конфлікт і вирішти його, 5) Зроби PR з описом. Напиши .commitlintrc конфіг.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "bash",
+          "reviewCriteria": [
+            "Conventional commits формат: feat:, fix:, docs:, chore:",
+            "Feature branch від main, а не від іншого feature branch",
+            "Interactive rebase для squash комітів",
+            "Конфлікт вирішений правильно (не просто вибрати одну сторону)",
+            "PR опис: що зроблено, чому, як тестувати",
+            ".gitignore присутній з node_modules та .env"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "slug": "linux",
+      "title": "Linux",
+      "icon": "devicon-linux-plain",
+      "color": "#FCC624",
+      "topics": [
+        "Основні команди: pwd, ls, cd, mkdir, touch, cat, less, nano, vim",
+        "Файлові операції: cp, mv, rm, find, grep",
+        "Permissions: chmod, chown, users, groups, sudo",
+        "Processes: ps, top, htop, kill, killall",
+        "Systemd: systemctl start/stop/enable/status, journalctl",
+        "Networking: ping, curl, wget, netstat, ss, lsof",
+        "Firewall: ufw allow/deny/status",
+        "SSH: підключення, config файл, authorized_keys",
+        "File transfer: scp, rsync",
+        "Cron jobs: crontab -e, синтаксис",
+        "Nginx: встановлення, базовий config",
+        "Server hardening: disable root login, fail2ban"
+      ],
+      "quiz": [
+        {
+          "id": "q7_1",
+          "question": "Що робить chmod 755 і розшифруй кожну цифру?",
+          "type": "open",
+          "expectedKeywords": ["owner", "group", "other", "read", "write", "execute", "4", "2", "1"],
+          "hint": "755 = 7 для owner, 5 для group, 5 для others. 4=read, 2=write, 1=execute"
+        },
+        {
+          "id": "q7_2",
+          "question": "Чим sudo відрізняється від роботи під root?",
+          "type": "open",
+          "expectedKeywords": ["тимчасово", "конкретна команда", "audit", "log", "безпека", "обліковий запис"],
+          "hint": "sudo дає права тимчасово і логує дії. root — постійно і без логів"
+        },
+        {
+          "id": "q7_3",
+          "question": "Для чого systemctl і яка різниця між start і enable?",
+          "type": "open",
+          "expectedKeywords": ["сервіс", "запустити", "автозапуск", "boot", "зараз", "перезавантаження"],
+          "hint": "start — запускає зараз. enable — запускатиметься після reboot"
+        },
+        {
+          "id": "q7_4",
+          "question": "Як переглянути логи конкретного systemd сервісу?",
+          "type": "open",
+          "expectedKeywords": ["journalctl", "-u", "сервіс", "-f", "follow", "tail"],
+          "hint": "journalctl -u nginx або journalctl -u myapp.service"
+        },
+        {
+          "id": "q7_5",
+          "question": "Для чого потрібен firewall на сервері?",
+          "type": "open",
+          "expectedKeywords": ["порти", "захист", "блокувати", "дозволити", "атака", "відкрити тільки потрібне"],
+          "hint": "Що відбудеться якщо всі порти відкриті для всього інтернету?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p7_1",
+          "title": "Server Setup",
+          "description": "На свіжому Ubuntu сервері (можна використати VirtualBox або cloud): 1) Створи нового користувача з sudo правами, 2) Забороні root SSH login, 3) Налаштуй SSH key auth, 4) Встанови і налаштуй ufw (дозволь тільки 22, 80, 443), 5) Встанови nginx і подай статичну HTML сторінку, 6) Створи systemd service для простого Node.js скрипту. Надай конфіги і команди.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "bash",
+          "reviewCriteria": [
+            "Новий user з sudo, а не робота під root",
+            "PermitRootLogin no в /etc/ssh/sshd_config",
+            "SSH key в authorized_keys, PasswordAuthentication no",
+            "ufw status показує тільки 22, 80, 443",
+            "Nginx config без помилок (nginx -t)",
+            "Systemd service file коректний, service запущений і enabled",
+            "journalctl -u myservice показує логи"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "slug": "react",
+      "title": "React",
+      "icon": "devicon-react-original",
+      "color": "#61DAFB",
+      "topics": [
+        "JSX синтаксис і як він компілюється",
+        "Components: functional components, props, children",
+        "State: useState, батч оновлення",
+        "Events: synthetic events, обробники",
+        "Conditional rendering: &&, ternary, early return",
+        "Lists: key prop, чому він важливий",
+        "useEffect: залежності, cleanup функція",
+        "useMemo і useCallback — коли дійсно потрібні",
+        "useRef: DOM refs і mutable values",
+        "Custom hooks — патерн і usecase",
+        "Context API: createContext, useContext, provider",
+        "Zustand для state management",
+        "Redux Toolkit: slice, thunk, RTK Query",
+        "TanStack Query: useQuery, useMutation, invalidation",
+        "React Hook Form + Zod validation",
+        "memo, lazy, Suspense",
+        "Error boundaries",
+        "Performance optimization: profiler, avoid re-renders"
+      ],
+      "quiz": [
+        {
+          "id": "q8_1",
+          "question": "Що таке JSX і у що він компілюється?",
+          "type": "open",
+          "expectedKeywords": ["React.createElement", "синтаксичний цукор", "Babel", "virtual DOM", "об'єкт"],
+          "hint": "<div>Hello</div> це насправді React.createElement('div', null, 'Hello')"
+        },
+        {
+          "id": "q8_2",
+          "question": "Чим props відрізняються від state?",
+          "type": "open",
+          "expectedKeywords": ["зовнішній", "внутрішній", "immutable", "батько", "re-render", "контроль"],
+          "hint": "Props приходять ззовні і компонент не може їх змінити. State — внутрішній"
+        },
+        {
+          "id": "q8_3",
+          "question": "Для чого useEffect і що означають залежності в масиві?",
+          "type": "open",
+          "expectedKeywords": ["side effect", "залежності", "викликається", "зміна", "cleanup", "mount"],
+          "hint": "useEffect з [] виконається один раз. З [value] — коли value змінюється"
+        },
+        {
+          "id": "q8_4",
+          "question": "Коли дійсно потрібен useMemo?",
+          "type": "open",
+          "expectedKeywords": ["дороге обчислення", "memoize", "re-render", "залежності", "не завжди потрібен"],
+          "hint": "useMemo — передчасна оптимізація якщо обчислення швидке. Коли воно виправдане?"
+        },
+        {
+          "id": "q8_5",
+          "question": "Для чого TanStack Query і що він вирішує?",
+          "type": "open",
+          "expectedKeywords": ["кешування", "loading state", "error state", "refetch", "stale", "синхронізація"],
+          "hint": "Що доводиться писати вручну при кожному fetch? TanStack Query це автоматизує"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p8_1",
+          "title": "CRM Dashboard",
+          "description": "Зроби CRM dashboard на React + TypeScript + TanStack Query + Zustand: список контактів з пошуком і фільтрами, деталі контакту, додавання/редагування через форму (React Hook Form + Zod), видалення з підтвердженням. Використовуй JSONPlaceholder або mock API. Роутинг через React Router.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "TanStack Query для всіх запитів до API",
+            "Zustand для UI state (фільтри, вибраний контакт)",
+            "React Hook Form + Zod — валідація на рівні схеми",
+            "Типізація: немає any, всі props типізовані",
+            "Custom hooks для бізнес-логіки",
+            "Error boundary навколо основного контенту",
+            "Loading skeleton замість спінера",
+            "Оптимістичні оновлення при мутаціях"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "slug": "vue3",
+      "title": "Vue 3",
+      "icon": "devicon-vuejs-plain",
+      "color": "#4FC08D",
+      "topics": [
+        "Template syntax: v-bind, v-on, v-if, v-for, v-model",
+        "Components: props, emits, slots",
+        "Composition API: setup(), ref, reactive, computed, watch, watchEffect",
+        "Lifecycle hooks в Composition API",
+        "Composables — аналог custom hooks",
+        "provide / inject",
+        "Custom directives",
+        "Teleport",
+        "Suspense",
+        "Render functions",
+        "Pinia: defineStore, state, getters, actions",
+        "Performance: v-memo, defineAsyncComponent, shallowRef"
+      ],
+      "quiz": [
+        {
+          "id": "q9_1",
+          "question": "Чим ref відрізняється від reactive у Vue 3?",
+          "type": "open",
+          "expectedKeywords": [".value", "примітиви", "об'єкт", "деструктуризація", "автоматично"],
+          "hint": "ref обгортає будь-яке значення в .value. reactive — тільки об'єкти"
+        },
+        {
+          "id": "q9_2",
+          "question": "Для чого computed і чим він відрізняється від методу?",
+          "type": "open",
+          "expectedKeywords": ["кешування", "залежності", "перераховується", "тільки при зміні", "getter"],
+          "hint": "Computed кешується і перераховується тільки коли змінились залежності. Метод — завжди"
+        },
+        {
+          "id": "q9_3",
+          "question": "Чим watch відрізняється від watchEffect?",
+          "type": "open",
+          "expectedKeywords": ["явні залежності", "автоматичне відстеження", "старе значення", "lazy", "immediate"],
+          "hint": "watchEffect відстежує залежності автоматично. watch — явно вказуєш що спостерігати"
+        },
+        {
+          "id": "q9_4",
+          "question": "Для чого slots у Vue компонентах?",
+          "type": "open",
+          "expectedKeywords": ["контент", "батько", "шаблон", "перевикористання", "named slots", "scoped"],
+          "hint": "Slots дозволяють батьківському компоненту передати HTML шаблон у дочірній"
+        },
+        {
+          "id": "q9_5",
+          "question": "Коли потрібен composable в Vue 3?",
+          "type": "open",
+          "expectedKeywords": ["логіка", "перевикористання", "кілька компонентів", "state", "custom hook"],
+          "hint": "Коли одна й та сама логіка потрібна в кількох компонентах"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p9_1",
+          "title": "Real Estate Catalog",
+          "description": "Зроби каталог нерухомості на Vue 3 + TypeScript + Pinia: список об'єктів з фільтрами (ціна, тип, район), деталі об'єкту, збереження в обране (Pinia + localStorage). Composable для фільтрації. Lazy loading для зображень.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Composition API скрізь (не Options API)",
+            "Pinia store для обраного і фільтрів",
+            "Composable useFilters або useProperties",
+            "TypeScript: typed props, emits, store",
+            "v-memo для оптимізації великого списку",
+            "defineAsyncComponent для деталей об'єкту"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "slug": "nuxt3",
+      "title": "Nuxt 3",
+      "icon": "devicon-nuxtjs-plain",
+      "color": "#00DC82",
+      "topics": [
+        "File-based routing: сторінки, динамічні роути, вкладені",
+        "Layouts система",
+        "Auto-imports: components, composables, utils",
+        "Plugins: client-only, server-only",
+        "Middleware: global, route-specific",
+        "SSR, SSG, CSR, ISR — коли що",
+        "Hydration і типові помилки",
+        "Nitro server: server routes, API routes",
+        "useFetch, useAsyncData — різниця",
+        "Runtime config і env змінні",
+        "Cookies: useCookie",
+        "Auth через nuxt-auth або custom",
+        "SEO: useHead, useSeoMeta",
+        "Sitemap, robots.txt",
+        "Image optimization через @nuxt/image"
+      ],
+      "quiz": [
+        {
+          "id": "q10_1",
+          "question": "Що таке SSR і які переваги та недоліки порівняно з CSR?",
+          "type": "open",
+          "expectedKeywords": ["сервер", "HTML", "SEO", "перший рендер", "гідрація", "інтерактивність"],
+          "hint": "SSR відрендерить HTML на сервері. CSR — у браузері. Що це дає для SEO і швидкості?"
+        },
+        {
+          "id": "q10_2",
+          "question": "Чим plugin відрізняється від middleware в Nuxt?",
+          "type": "open",
+          "expectedKeywords": ["ініціалізація", "навігація", "один раз", "кожен роут", "inject", "перевірка"],
+          "hint": "Plugin — запускається один раз при старті. Middleware — при кожній навігації"
+        },
+        {
+          "id": "q10_3",
+          "question": "Для чого runtime config і чим він відрізняється від .env?",
+          "type": "open",
+          "expectedKeywords": ["публічний", "приватний", "client", "server", "NUXT_PUBLIC", "безпека"],
+          "hint": "Деякі env змінні не можна відкривати клієнту. Як Nuxt вирішує цю проблему?"
+        },
+        {
+          "id": "q10_4",
+          "question": "Що таке hydration і чому виникають hydration mismatch помилки?",
+          "type": "open",
+          "expectedKeywords": ["SSR", "клієнт", "відповідність", "DOM", "різниця", "Date.now()", "Math.random()"],
+          "hint": "Hydration — коли Vue 'оживляє' SSR HTML. Що може відрізнятись між сервером і клієнтом?"
+        },
+        {
+          "id": "q10_5",
+          "question": "Як працюють server routes у Nuxt?",
+          "type": "open",
+          "expectedKeywords": ["server/api", "Nitro", "файл", "defineEventHandler", "H3", "API"],
+          "hint": "Файл server/api/users.get.ts автоматично стає GET /api/users ендпоінтом"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p10_1",
+          "title": "Blog Platform",
+          "description": "Зроби blog на Nuxt 3: список постів (SSG), деталі посту (SSR), авторизація (server-side cookie session), адмін панель (client-only, захищена middleware). Nuxt Content або mock data. SEO для кожної сторінки.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Список постів генерується статично (SSG)",
+            "Деталі посту — SSR з правильними meta тегами",
+            "Auth middleware захищає /admin роути",
+            "useCookie для session token",
+            "useHead/useSeoMeta на кожній сторінці",
+            "Немає hydration mismatch помилок",
+            "Server route для auth (POST /api/auth/login)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "slug": "nodejs",
+      "title": "Node.js",
+      "icon": "devicon-nodejs-plain",
+      "color": "#339933",
+      "topics": [
+        "Event loop в Node.js: phases, libuv",
+        "CommonJS vs ES Modules",
+        "Вбудовані модулі: fs, path, http, crypto, os, events",
+        "Streams: Readable, Writable, Transform, pipeline",
+        "Buffers — робота з бінарними даними",
+        "process: env, argv, exit, stdout, stderr",
+        "Worker threads — паралелізм в Node",
+        "Cluster module — використання всіх CPU cores",
+        "Child processes: spawn, exec, fork",
+        "Memory management: heap, garbage collection",
+        "Performance profiling: --prof, clinic.js",
+        "Error handling: uncaughtException, unhandledRejection"
+      ],
+      "quiz": [
+        {
+          "id": "q11_1",
+          "question": "Як влаштований event loop в Node.js? Назви основні фази.",
+          "type": "open",
+          "expectedKeywords": ["timers", "poll", "check", "libuv", "I/O", "setImmediate", "process.nextTick"],
+          "hint": "Node event loop має фази: timers, pending I/O, idle, poll, check, close callbacks"
+        },
+        {
+          "id": "q11_2",
+          "question": "Для чого streams і коли вони краще за звичайне читання файлу?",
+          "type": "open",
+          "expectedKeywords": ["пам'ять", "великі файли", "chunk", "pipe", "backpressure", "поступово"],
+          "hint": "Що відбувається з пам'яттю якщо читаєш файл 1GB через fs.readFile?"
+        },
+        {
+          "id": "q11_3",
+          "question": "Чим process.env корисний і де його використовувати?",
+          "type": "open",
+          "expectedKeywords": ["змінні середовища", "конфігурація", "secrets", "різні середовища", ".env"],
+          "hint": "Dev, staging, production — у кожного різні ключі і URL"
+        },
+        {
+          "id": "q11_4",
+          "question": "Що таке buffer і коли він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["бінарні дані", "фіксований розмір", "файли", "мережа", "encoding", "raw bytes"],
+          "hint": "Buffer — це область пам'яті для бінарних даних. Коли маєш файл або мережевий пакет..."
+        },
+        {
+          "id": "q11_5",
+          "question": "Коли потрібні worker threads в Node.js?",
+          "type": "open",
+          "expectedKeywords": ["CPU-intensive", "блокування", "event loop", "паралельно", "обчислення"],
+          "hint": "Node однопоточний. Якщо маєш важке обчислення — воно заблокує event loop"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p11_1",
+          "title": "CLI File Processor",
+          "description": "Зроби CLI інструмент без зовнішніх залежностей (тільки Node built-ins): читає великий CSV файл (10MB+) через streams, трансформує дані (фільтр, маппінг), записує результат в інший файл. Показує progress bar в консолі. Підтримує flags: --input, --output, --filter.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "javascript",
+          "reviewCriteria": [
+            "Streams для читання і запису (не fs.readFileSync)",
+            "Transform stream для обробки даних",
+            "pipeline() для правильного error handling",
+            "process.argv або util.parseArgs для флагів",
+            "Progress відображається через process.stdout.write (не console.log)",
+            "Обробка помилок: файл не знайдено, невалідний CSV"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "slug": "express",
+      "title": "Express",
+      "icon": "devicon-express-original",
+      "color": "#000000",
+      "topics": [
+        "Routing: app.get/post/put/delete, Router",
+        "Middleware: built-in, third-party, custom",
+        "Request і Response об'єкти",
+        "Error handling middleware (4 аргументи)",
+        "Validation: express-validator або Zod",
+        "Authentication: JWT middleware, cookie-parser",
+        "Rate limiting: express-rate-limit",
+        "File upload: multer",
+        "CORS: cors middleware",
+        "Compression: compression middleware",
+        "Logging: morgan",
+        "Структура проекту: controllers, services, routes"
+      ],
+      "quiz": [
+        {
+          "id": "q12_1",
+          "question": "Що таке middleware в Express і як працює ланцюжок middleware?",
+          "type": "open",
+          "expectedKeywords": ["функція", "req", "res", "next", "ланцюжок", "порядок", "перервати"],
+          "hint": "Middleware — це функція (req, res, next). Виклик next() передає управління далі"
+        },
+        {
+          "id": "q12_2",
+          "question": "Як зробити global error handler в Express?",
+          "type": "open",
+          "expectedKeywords": ["4 аргументи", "err, req, res, next", "app.use", "після роутів", "статус"],
+          "hint": "Error handler middleware має 4 аргументи замість 3: (err, req, res, next)"
+        },
+        {
+          "id": "q12_3",
+          "question": "Чим cookie auth відрізняється від token (Bearer) auth?",
+          "type": "open",
+          "expectedKeywords": ["httpOnly", "автоматично", "Authorization header", "XSS", "CSRF", "браузер"],
+          "hint": "Cookie браузер відправляє автоматично. Bearer token — треба явно в заголовку"
+        },
+        {
+          "id": "q12_4",
+          "question": "Для чого rate limiting і як його налаштувати?",
+          "type": "open",
+          "expectedKeywords": ["brute force", "DDoS", "ліміт запитів", "IP", "window", "max"],
+          "hint": "Rate limiting захищає від атак перебором паролів і перевантаження"
+        },
+        {
+          "id": "q12_5",
+          "question": "Як працює next() і що станеться якщо його не викликати?",
+          "type": "open",
+          "expectedKeywords": ["передати", "наступний middleware", "зависне", "відповідь", "ланцюжок"],
+          "hint": "Без next() запит зависне якщо не відправити response"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p12_1",
+          "title": "REST API з Auth",
+          "description": "Зроби REST API: auth (реєстрація, логін через httpOnly cookie, logout, refresh token), CRUD для posts (тільки авторизовані), roles (admin може видаляти будь-що, user — тільки своє), rate limiting на auth ендпоінти, file upload для аватара, Swagger документація.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "javascript",
+          "reviewCriteria": [
+            "JWT в httpOnly cookie (не localStorage)",
+            "Refresh token rotation",
+            "Middleware для перевірки auth і role",
+            "Rate limiting на /auth/login і /auth/register",
+            "Global error handler ловить всі помилки",
+            "Validation через Zod або express-validator",
+            "Multer для file upload з перевіркою типу файлу",
+            "Swagger/OpenAPI документація"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "slug": "nestjs",
+      "title": "NestJS",
+      "icon": "devicon-nestjs-plain",
+      "color": "#E0234E",
+      "topics": [
+        "Modules, Controllers, Services, Providers",
+        "Dependency Injection — як працює в NestJS",
+        "Decorators: @Get, @Post, @Body, @Param, @Query, @Headers",
+        "Guards: AuthGuard, RolesGuard",
+        "Pipes: ValidationPipe, ParseIntPipe, custom",
+        "Interceptors: logging, transform response",
+        "Exception Filters: HttpException, custom filters",
+        "Middleware в NestJS",
+        "Custom decorators: @User(), @Roles()",
+        "DTO з class-validator і class-transformer",
+        "ConfigModule і ConfigService",
+        "TypeORM або Prisma інтеграція",
+        "Swagger через @nestjs/swagger",
+        "CQRS pattern з @nestjs/cqrs",
+        "Черги через Bull/BullMQ",
+        "WebSockets через @nestjs/websockets"
+      ],
+      "quiz": [
+        {
+          "id": "q13_1",
+          "question": "Що таке Dependency Injection і як він реалізований в NestJS?",
+          "type": "open",
+          "expectedKeywords": ["IoC container", "інжектується", "конструктор", "provider", "слабка залежність", "декоратор"],
+          "hint": "NestJS IoC container сам створює і передає залежності в конструктор"
+        },
+        {
+          "id": "q13_2",
+          "question": "Для чого Guards в NestJS і чим вони відрізняються від middleware?",
+          "type": "open",
+          "expectedKeywords": ["авторизація", "доступ", "контекст виконання", "до handler", "декоратор", "canActivate"],
+          "hint": "Guards мають доступ до execution context — вони знають який controller і handler викликається"
+        },
+        {
+          "id": "q13_3",
+          "question": "Чим Pipe відрізняється від Interceptor?",
+          "type": "open",
+          "expectedKeywords": ["трансформація", "валідація", "вхідні дані", "до і після", "відповідь", "запит"],
+          "hint": "Pipe — перетворює або валідує вхідні дані. Interceptor — може змінити запит І відповідь"
+        },
+        {
+          "id": "q13_4",
+          "question": "Для чого DTO в NestJS?",
+          "type": "open",
+          "expectedKeywords": ["Data Transfer Object", "валідація", "типізація", "вхідні дані", "class-validator", "swagger"],
+          "hint": "DTO описує форму даних які очікуються на вході. Це і типізація, і валідація, і документація"
+        },
+        {
+          "id": "q13_5",
+          "question": "Що таке module в NestJS і для чого він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["організація", "інкапсуляція", "imports", "exports", "providers", "feature"],
+          "hint": "Module — це контейнер для пов'язаної функціональності. Контролює що видно іншим модулям"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p13_1",
+          "title": "SaaS Backend",
+          "description": "Зроби backend для SaaS на NestJS + Prisma + PostgreSQL: AuthModule (JWT + refresh), UsersModule, RolesModule (RBAC з permissions), SubscriptionsModule (Stripe webhooks), NotificationsModule (email через Nodemailer). Swagger документація. Глобальний ValidationPipe. Логування через Winston.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Кожна фіча в окремому module",
+            "AuthGuard і RolesGuard через @UseGuards",
+            "Custom @CurrentUser() decorator",
+            "DTO з class-validator для всіх endpoints",
+            "Global ValidationPipe з whitelist: true",
+            "Prisma в окремому PrismaModule",
+            "Stripe webhook signature перевірка",
+            "Winston logger замість console.log",
+            "Swagger з bearer auth документацією"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "slug": "databases",
+      "title": "Databases",
+      "icon": "devicon-postgresql-plain",
+      "color": "#336791",
+      "topics": [
+        "PostgreSQL: таблиці, типи даних, constraints",
+        "Relations: one-to-one, one-to-many, many-to-many",
+        "Primary key, Foreign key, Unique, Not Null",
+        "Indexes: B-tree, Hash, GIN, GiST — коли що",
+        "JOINs: INNER, LEFT, RIGHT, FULL, CROSS",
+        "Transactions: ACID, BEGIN, COMMIT, ROLLBACK",
+        "Isolation levels: Read Uncommitted, Read Committed, Repeatable Read, Serializable",
+        "Views і Materialized Views",
+        "Triggers і Functions",
+        "Query planner: EXPLAIN, EXPLAIN ANALYZE",
+        "Locks: row-level, table-level, advisory",
+        "Full-text search в PostgreSQL",
+        "JSONB тип — зберігання і запити",
+        "Migrations стратегія",
+        "MongoDB: documents, collections, aggregation pipeline",
+        "MongoDB schema design patterns"
+      ],
+      "quiz": [
+        {
+          "id": "q14_1",
+          "question": "Чим SQL відрізняється від NoSQL? Коли що обрати?",
+          "type": "open",
+          "expectedKeywords": ["схема", "відносини", "гнучкість", "масштаб", "ACID", "eventual consistency", "транзакції"],
+          "hint": "SQL — строга схема, відносини, транзакції. NoSQL — гнучкість, горизонтальне масштабування"
+        },
+        {
+          "id": "q14_2",
+          "question": "Для чого index і як він впливає на швидкість?",
+          "type": "open",
+          "expectedKeywords": ["пошук", "B-tree", "без перебору", "SELECT швидше", "INSERT повільніше", "пам'ять"],
+          "hint": "Index — як зміст книги. Але кожен index уповільнює INSERT/UPDATE"
+        },
+        {
+          "id": "q14_3",
+          "question": "Що таке транзакція і що означає ACID?",
+          "type": "open",
+          "expectedKeywords": ["Atomicity", "Consistency", "Isolation", "Durability", "або все або нічого", "rollback"],
+          "hint": "ACID: Atomicity — все або нічого, Consistency — дані валідні, Isolation — ізоляція, Durability — збережено"
+        },
+        {
+          "id": "q14_4",
+          "question": "Чим INNER JOIN відрізняється від LEFT JOIN?",
+          "type": "open",
+          "expectedKeywords": ["перетин", "всі рядки", "NULL", "ліва таблиця", "відповідність"],
+          "hint": "INNER JOIN — тільки збіги. LEFT JOIN — всі рядки лівої таблиці, навіть без збігу"
+        },
+        {
+          "id": "q14_5",
+          "question": "Що показує EXPLAIN ANALYZE і як його використовувати?",
+          "type": "open",
+          "expectedKeywords": ["план запиту", "actual time", "seq scan", "index scan", "cost", "rows", "оптимізація"],
+          "hint": "EXPLAIN ANALYZE показує як PostgreSQL виконує запит і скільки це коштує"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p14_1",
+          "title": "CRM Database Design",
+          "description": "Спроєктуй і реалізуй PostgreSQL базу для CRM: companies, contacts, deals (з stages), activities (calls, emails, meetings), users з roles. Напиши складні SQL запити: top companies by deal value, conversion rate by stage, activities per user per month. Оптимізуй slow queries через EXPLAIN ANALYZE і indexes.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "sql",
+          "reviewCriteria": [
+            "Нормалізація: 3NF мінімум",
+            "Правильні foreign keys з ON DELETE CASCADE або RESTRICT",
+            "Indexes на frequently queried columns",
+            "EXPLAIN ANALYZE показує Index Scan (не Seq Scan) для основних запитів",
+            "Транзакція для операцій що змінюють кілька таблиць",
+            "Constraints: CHECK, UNIQUE де потрібно",
+            "Міграційний файл з коментарями"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "slug": "prisma",
+      "title": "Prisma / ORM",
+      "icon": "devicon-postgresql-plain",
+      "color": "#2D3748",
+      "topics": [
+        "Prisma schema: models, fields, types",
+        "Relations: @relation, one-to-many, many-to-many через implicit table",
+        "Prisma Client: CRUD операції",
+        "Filtering: where, AND, OR, NOT",
+        "Sorting: orderBy",
+        "Pagination: skip/take, cursor-based",
+        "Select і Include — різниця",
+        "Transactions: $transaction",
+        "Raw SQL: $queryRaw, $executeRaw",
+        "Migrations: migrate dev, migrate deploy",
+        "Seed: prisma/seed.ts",
+        "Prisma Studio",
+        "Performance: N+1 проблема і як уникати",
+        "Connection pooling: PgBouncer або Prisma Accelerate"
+      ],
+      "quiz": [
+        {
+          "id": "q15_1",
+          "question": "Для чого ORM як Prisma і що він дає порівняно з raw SQL?",
+          "type": "open",
+          "expectedKeywords": ["типізація", "автозаповнення", "міграції", "абстракція", "продуктивність", "запити"],
+          "hint": "Prisma генерує типи з schema. Що це дає TypeScript розробнику?"
+        },
+        {
+          "id": "q15_2",
+          "question": "Що таке міграція і чому важливо не редагувати старі міграції?",
+          "type": "open",
+          "expectedKeywords": ["версія бази", "зміни схеми", "команда", "production", "rollback", "порядок"],
+          "hint": "Міграції — це версійний контроль для бази даних"
+        },
+        {
+          "id": "q15_3",
+          "question": "Як описати one-to-many relation в Prisma schema?",
+          "type": "open",
+          "expectedKeywords": ["@relation", "fields", "references", "масив", "User", "Post", "userId"],
+          "hint": "User має багато Posts. В Post є поле userId і @relation"
+        },
+        {
+          "id": "q15_4",
+          "question": "Коли потрібен raw SQL в Prisma і як його використовувати?",
+          "type": "open",
+          "expectedKeywords": ["складні запити", "window functions", "full-text search", "$queryRaw", "template literal"],
+          "hint": "Prisma не підтримує всі PostgreSQL фічі. Як написати window function?"
+        },
+        {
+          "id": "q15_5",
+          "question": "Що таке N+1 проблема і як її вирішити в Prisma?",
+          "type": "open",
+          "expectedKeywords": ["include", "select", "окремий запит", "1 + N запитів", "JOIN", "eager loading"],
+          "hint": "Отримав 100 постів, потім для кожного окремо запитав автора — це N+1"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p15_1",
+          "title": "Prisma Schema для SaaS",
+          "description": "Зроби повну Prisma schema для SaaS платформи: User, Organization, Membership (many-to-many з roles), Subscription, Plan, Invoice, ApiKey. Додай seed з тестовими даними. Напиши сервіс з pagination, filtering, і transactions. Перевір що немає N+1 запитів через Prisma logging.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Schema: всі relations правильно визначені",
+            "Enum для roles і subscription status",
+            "Seed: реалістичні дані через @faker-js/faker",
+            "Cursor-based pagination (не offset для великих таблиць)",
+            "Transaction для створення Organization + Membership",
+            "Prisma log level 'query' — немає N+1",
+            "Soft delete через deletedAt nullable field"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "slug": "auth-security",
+      "title": "Auth & Security",
+      "icon": "devicon-nodejs-plain",
+      "color": "#FF6B35",
+      "topics": [
+        "Authentication vs Authorization",
+        "JWT: структура, підпис, verify, decode",
+        "Refresh token strategy і rotation",
+        "httpOnly cookies vs localStorage для токенів",
+        "Sessions: server-side sessions з Redis",
+        "OAuth 2.0: flows (Authorization Code, PKCE)",
+        "2FA: TOTP (Google Authenticator)",
+        "RBAC: roles, permissions, resource ownership",
+        "CORS: як працює, preflight requests",
+        "CSRF: як атака працює і як захиститись",
+        "XSS: stored, reflected, DOM-based",
+        "SQL Injection: параметризовані запити",
+        "Rate limiting і brute force protection",
+        "Password hashing: bcrypt, argon2",
+        "HTTPS: TLS handshake basics",
+        "Secure cookie attributes: httpOnly, Secure, SameSite",
+        "Helmet.js для HTTP headers"
+      ],
+      "quiz": [
+        {
+          "id": "q16_1",
+          "question": "Чим authentication відрізняється від authorization?",
+          "type": "open",
+          "expectedKeywords": ["хто ти", "що можеш", "логін", "права", "identity", "permissions"],
+          "hint": "Authentication — ти довів хто ти. Authorization — що тобі дозволено робити"
+        },
+        {
+          "id": "q16_2",
+          "question": "Що таке CSRF атака і як від неї захиститись?",
+          "type": "open",
+          "expectedKeywords": ["cookie", "автоматично", "шкідливий сайт", "CSRF token", "SameSite", "Referer"],
+          "hint": "Браузер автоматично відправляє cookies. Шкідливий сайт може скористатись цим..."
+        },
+        {
+          "id": "q16_3",
+          "question": "Що таке XSS і як захиститись?",
+          "type": "open",
+          "expectedKeywords": ["впровадження скрипту", "innerHTML", "escape", "CSP", "httpOnly", "sanitize"],
+          "hint": "XSS — зловмисник впроваджує JavaScript на сторінку. Де він може це зробити?"
+        },
+        {
+          "id": "q16_4",
+          "question": "Для чого httpOnly cookie і що вона захищає?",
+          "type": "open",
+          "expectedKeywords": ["JavaScript", "document.cookie", "XSS", "не доступна", "тільки браузер", "token"],
+          "hint": "httpOnly cookie недоступна через document.cookie. Що це захищає?"
+        },
+        {
+          "id": "q16_5",
+          "question": "Чому паролі треба зберігати тільки у вигляді hash?",
+          "type": "open",
+          "expectedKeywords": ["витік бази", "bcrypt", "salt", "одностороння", "rainbow table", "порівняння"],
+          "hint": "Якщо базу вкрадуть і паролі у відкритому вигляді — що відбудеться?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p16_1",
+          "title": "Secure Auth System",
+          "description": "Зроби повну auth систему: реєстрація/логін з httpOnly cookies, refresh token rotation (видалення старого при використанні), RBAC з permissions (не просто roles), OAuth через GitHub, 2FA через TOTP, rate limiting на auth endpoints, password reset через email токен. Всі вразливості закриті.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Паролі через argon2 (не bcrypt — argon2 краще)",
+            "JWT в httpOnly, Secure, SameSite=Strict cookie",
+            "Refresh token rotation: старий токен інвалідується при використанні",
+            "CSRF токен для state-changing requests",
+            "Rate limiting: 5 спроб логіну, потім lockout",
+            "OAuth state parameter для CSRF захисту",
+            "TOTP з qrcode генерацією і backup codes",
+            "Helmet.js з правильним CSP"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "slug": "testing",
+      "title": "Testing",
+      "icon": "devicon-jest-plain",
+      "color": "#C21325",
+      "topics": [
+        "Unit tests: що і навіщо тестувати",
+        "Integration tests: тестування взаємодії",
+        "E2E tests: тестування з точки зору юзера",
+        "Vitest: describe, it, expect, beforeEach, afterEach",
+        "Testing Library: render, screen, userEvent, queries",
+        "Mocks і spies: vi.mock, vi.spyOn",
+        "MSW (Mock Service Worker) для API мокінгу",
+        "Playwright: page, locator, assertions",
+        "Jest/Vitest для backend: supertest",
+        "Test database strategy",
+        "Code coverage — що показує і що не показує",
+        "TDD — коли має сенс",
+        "CI integration для тестів"
+      ],
+      "quiz": [
+        {
+          "id": "q17_1",
+          "question": "Чим unit test відрізняється від integration і e2e? Коли що використовувати?",
+          "type": "open",
+          "expectedKeywords": ["ізоляція", "компонент", "взаємодія", "браузер", "реальне середовище", "швидкість"],
+          "hint": "Unit — швидкий, ізольований. E2E — повільний, але тестує реальну поведінку"
+        },
+        {
+          "id": "q17_2",
+          "question": "Для чого mock і в яких випадках він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["ізоляція", "зовнішні залежності", "API", "база даних", "контроль", "детермінованість"],
+          "hint": "Тест не має залежати від зовнішнього API або бази даних — вони можуть бути недоступні"
+        },
+        {
+          "id": "q17_3",
+          "question": "Що краще тестувати у frontend (поведінку чи деталі реалізації)?",
+          "type": "open",
+          "expectedKeywords": ["поведінку", "userEvent", "що бачить юзер", "не деталі реалізації", "рефакторинг"],
+          "hint": "Testing Library філософія: тестуй як юзер взаємодіє, а не як влаштований компонент"
+        },
+        {
+          "id": "q17_4",
+          "question": "Як тестувати backend API ендпоінти?",
+          "type": "open",
+          "expectedKeywords": ["supertest", "integration test", "реальна база", "test database", "seed", "cleanup"],
+          "hint": "supertest дозволяє робити HTTP запити до Express/NestJS без реального сервера"
+        },
+        {
+          "id": "q17_5",
+          "question": "Для чого окрема test database?",
+          "type": "open",
+          "expectedKeywords": ["ізоляція", "production", "очищення", "seed", "паралельні тести", "реальні дані"],
+          "hint": "Тести не мають впливати на реальні дані і мають бути повторюваними"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p17_1",
+          "title": "Test Coverage",
+          "description": "Напиши тести для раніше зробленого проекту: 1) Unit tests для utility функцій і хуків (Vitest), 2) Component tests для форми логіну (Testing Library), 3) API integration tests для auth endpoints (supertest + test DB), 4) E2E test для login flow (Playwright). CI pipeline що запускає всі тести.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Unit tests: тестують логіку, не деталі реалізації",
+            "Component tests: userEvent.type і userEvent.click (не fire events)",
+            "MSW для мокінгу API в component tests",
+            "Integration tests: окрема test database, cleanup після кожного тесту",
+            "Playwright: Page Object Model або принаймні локатори через aria",
+            "Coverage >= 70% для core логіки",
+            "GitHub Actions workflow запускає тести на кожен PR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "slug": "docker",
+      "title": "Docker",
+      "icon": "devicon-docker-plain",
+      "color": "#2496ED",
+      "topics": [
+        "Images vs Containers",
+        "Dockerfile: FROM, RUN, COPY, WORKDIR, ENV, EXPOSE, CMD, ENTRYPOINT",
+        "Layer caching — як оптимізувати",
+        "Multi-stage builds",
+        "docker-compose: services, volumes, networks, depends_on",
+        "Volumes: named volumes, bind mounts",
+        "Networks: bridge, host, custom",
+        "Environment variables в Docker",
+        "Docker registry: Docker Hub, GHCR",
+        ".dockerignore",
+        "Health checks",
+        "Docker для PostgreSQL, Redis",
+        "Production considerations: non-root user, minimal base image"
+      ],
+      "quiz": [
+        {
+          "id": "q18_1",
+          "question": "Чим image відрізняється від container?",
+          "type": "open",
+          "expectedKeywords": ["шаблон", "запущений", "read-only", "layer", "екземпляр", "клас vs об'єкт"],
+          "hint": "Image — як клас. Container — як екземпляр класу (об'єкт)"
+        },
+        {
+          "id": "q18_2",
+          "question": "Для чого volumes в Docker і чим named volume відрізняється від bind mount?",
+          "type": "open",
+          "expectedKeywords": ["персистентність", "дані", "контейнер видалено", "хост директорія", "Docker manages"],
+          "hint": "Що відбувається з даними PostgreSQL коли контейнер видаляється без volume?"
+        },
+        {
+          "id": "q18_3",
+          "question": "Для чого custom Docker networks?",
+          "type": "open",
+          "expectedKeywords": ["ізоляція", "комунікація", "DNS", "ім'я сервісу", "без IP", "безпека"],
+          "hint": "В одній мережі контейнери можуть звертатись один до одного по імені сервісу"
+        },
+        {
+          "id": "q18_4",
+          "question": "Що таке multi-stage build і навіщо він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["розмір", "build dependencies", "production image", "builder stage", "COPY --from"],
+          "hint": "Node + TypeScript в production image не потрібен TypeScript. Як зменшити розмір?"
+        },
+        {
+          "id": "q18_5",
+          "question": "Для чого docker-compose?",
+          "type": "open",
+          "expectedKeywords": ["кілька контейнерів", "один файл", "оркестрація", "залежності", "local development"],
+          "hint": "Frontend + Backend + PostgreSQL + Redis — як запустити і зупинити одною командою?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p18_1",
+          "title": "Dockerize Full Stack App",
+          "description": "Dockerize повний стек: Frontend (Nuxt/React), Backend (NestJS), PostgreSQL, Redis, Nginx. docker-compose для local dev з hot reload. Окремий docker-compose.prod.yml для production з multi-stage builds. Non-root user в production. Health checks для всіх сервісів.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "dockerfile",
+          "reviewCriteria": [
+            "Multi-stage Dockerfile для frontend і backend",
+            "Production image size < 200MB для Node apps",
+            "Non-root user в production containers",
+            "docker-compose.dev.yml: volumes для hot reload",
+            "docker-compose.prod.yml: no source mounts, build from Dockerfile",
+            "Named volume для PostgreSQL data",
+            "Health checks для db і redis",
+            ".dockerignore: node_modules, .git, .env"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "slug": "nginx",
+      "title": "Nginx",
+      "icon": "devicon-nginx-original",
+      "color": "#009639",
+      "topics": [
+        "Reverse proxy: proxy_pass, proxy_set_header",
+        "Static files serving",
+        "Gzip compression",
+        "SSL/TLS з Let's Encrypt і Certbot",
+        "HTTP → HTTPS redirect",
+        "HTTP/2",
+        "Load balancing: round-robin, least_conn, ip_hash",
+        "Rate limiting: limit_req_zone",
+        "Caching: proxy_cache",
+        "Logs: access_log, error_log, custom format",
+        "Security headers через add_header",
+        "WebSocket proxying",
+        "Upstream health checks"
+      ],
+      "quiz": [
+        {
+          "id": "q19_1",
+          "question": "Що таке reverse proxy і навіщо він потрібен?",
+          "type": "open",
+          "expectedKeywords": ["посередник", "клієнт", "backend", "приховати", "SSL", "балансування", "кешування"],
+          "hint": "Nginx стоїть між клієнтом і backend сервером. Що це дає?"
+        },
+        {
+          "id": "q19_2",
+          "question": "Для чого SSL і що відбувається під час TLS handshake?",
+          "type": "open",
+          "expectedKeywords": ["шифрування", "сертифікат", "HTTPS", "Man-in-the-middle", "довіра", "ключ"],
+          "hint": "SSL захищає трафік від прослуховування і підміни"
+        },
+        {
+          "id": "q19_3",
+          "question": "Чим redirect 301 відрізняється від 302?",
+          "type": "open",
+          "expectedKeywords": ["постійний", "тимчасовий", "SEO", "кешування", "браузер", "наступні запити"],
+          "hint": "301 — постійний (браузер кешує), 302 — тимчасовий (браузер завжди питає сервер)"
+        },
+        {
+          "id": "q19_4",
+          "question": "Де дивитися nginx logs і що в них шукати при проблемах?",
+          "type": "open",
+          "expectedKeywords": ["/var/log/nginx", "access_log", "error_log", "статус код", "502", "upstream"],
+          "hint": "/var/log/nginx/error.log — перше місце при проблемах з nginx"
+        },
+        {
+          "id": "q19_5",
+          "question": "Для чого gzip в nginx?",
+          "type": "open",
+          "expectedKeywords": ["стиснення", "розмір відповіді", "трафік", "швидкість", "CPU", "text файли"],
+          "hint": "gzip стискає HTML, CSS, JS перед відправкою. Як це впливає на швидкість?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p19_1",
+          "title": "Nginx Config для Production",
+          "description": "Налаштуй nginx для production: HTTPS з Let's Encrypt, HTTP→HTTPS redirect, reverse proxy для backend API і frontend, gzip, security headers (HSTS, CSP, X-Frame-Options), rate limiting для /api, WebSocket proxying для /socket.io, custom error pages.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "nginx",
+          "reviewCriteria": [
+            "HTTP автоматично редиректить на HTTPS (301)",
+            "SSL сертифікат Let's Encrypt (або self-signed для тесту)",
+            "proxy_set_header X-Real-IP і X-Forwarded-For",
+            "gzip on для text/html, text/css, application/javascript",
+            "HSTS header: Strict-Transport-Security",
+            "rate limiting: limit_req_zone для /api",
+            "WebSocket upgrade headers для /socket.io",
+            "nginx -t проходить без помилок"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "slug": "ci-cd",
+      "title": "CI/CD",
+      "icon": "devicon-github-original",
+      "color": "#2088FF",
+      "topics": [
+        "CI: Continuous Integration — що і навіщо",
+        "CD: Continuous Delivery vs Deployment",
+        "GitHub Actions: workflows, jobs, steps, runners",
+        "Triggers: push, pull_request, schedule, workflow_dispatch",
+        "Actions: actions/checkout, actions/setup-node, docker/build-push-action",
+        "Secrets і Variables в GitHub",
+        "Environments: staging, production",
+        "Build pipeline: lint, type-check, test, build",
+        "Deploy pipeline: build image, push to registry, deploy to VPS",
+        "Self-hosted runners",
+        "Caching в GitHub Actions",
+        "Rollback стратегії",
+        "Notifications: Telegram/Discord webhook"
+      ],
+      "quiz": [
+        {
+          "id": "q20_1",
+          "question": "Що таке CI і яка його ціль?",
+          "type": "open",
+          "expectedKeywords": ["автоматично", "тести", "merge", "якість", "рання перевірка", "інтеграція"],
+          "hint": "CI запускає перевірки автоматично при кожному push або PR"
+        },
+        {
+          "id": "q20_2",
+          "question": "Що таке CD і чим Continuous Delivery відрізняється від Continuous Deployment?",
+          "type": "open",
+          "expectedKeywords": ["автоматичний деплой", "ручне підтвердження", "production", "staging", "pipeline"],
+          "hint": "Delivery — готово до деплою, але потрібне ручне підтвердження. Deployment — автоматично"
+        },
+        {
+          "id": "q20_3",
+          "question": "Для чого GitHub Secrets і що не можна в них зберігати?",
+          "type": "open",
+          "expectedKeywords": ["API ключі", "паролі", "environment variables", "не в коді", "зашифровані"],
+          "hint": "Secrets зберігаються зашифровано і не видно в логах. Що туди кладуть?"
+        },
+        {
+          "id": "q20_4",
+          "question": "Що має бути в deploy pipeline від push до production?",
+          "type": "open",
+          "expectedKeywords": ["тести", "build", "Docker image", "push registry", "SSH", "restart", "health check"],
+          "hint": "Опиши кроки: від push до того як юзер бачить нову версію"
+        },
+        {
+          "id": "q20_5",
+          "question": "Як зробити rollback якщо деплой зламав production?",
+          "type": "open",
+          "expectedKeywords": ["попередній image", "tag", "відкат", "docker pull", "restart", "швидко"],
+          "hint": "Docker images теговані. Попередній тег досі існує в registry..."
+        }
+      ],
+      "practice": [
+        {
+          "id": "p20_1",
+          "title": "Full CI/CD Pipeline",
+          "description": "Зроби GitHub Actions pipeline для fullstack проекту: 1) CI workflow (тести, lint, type-check на кожен PR), 2) Deploy workflow (push image до GHCR, deploy на VPS через SSH), 3) Staging environment (деплой main → staging автоматично), 4) Production (тільки по тегу v*.*.*), 5) Telegram notification про успіх/фейл.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "yaml",
+          "reviewCriteria": [
+            "CI: тести запускаються на кожен PR",
+            "Caching для node_modules (actions/cache)",
+            "Docker multi-platform build (amd64)",
+            "Secrets для VPS SSH key і Telegram token",
+            "Deploy через SSH: docker pull + docker-compose up -d",
+            "Health check після деплою (curl /api/health)",
+            "Rollback: можна вручну задеплоїти попередній тег",
+            "Telegram повідомлення з результатом і посиланням на run"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "slug": "devops-vps",
+      "title": "DevOps / VPS",
+      "icon": "devicon-linux-plain",
+      "color": "#FF9900",
+      "topics": [
+        "VPS: що це, як обрати (RAM, CPU, SSD)",
+        "DNS: A record, CNAME, MX, TXT",
+        "DNS propagation",
+        "Domain прив'язка до VPS",
+        "Let's Encrypt + Certbot автоматичне оновлення",
+        "Backups: PostgreSQL dump, автоматизація через cron",
+        "Monitoring: Uptime Robot або Grafana",
+        "Логи: централізований збір",
+        "Server hardening: fail2ban, unattended-upgrades",
+        "Zero-downtime deploy стратегії",
+        "Database backups до S3/Backblaze B2"
+      ],
+      "quiz": [
+        {
+          "id": "q21_1",
+          "question": "Що таке A record в DNS і як він пов'язаний з твоїм сервером?",
+          "type": "open",
+          "expectedKeywords": ["IP адреса", "домен", "вказує на", "IPv4", "запис"],
+          "hint": "A record: example.com → 123.456.789.0"
+        },
+        {
+          "id": "q21_2",
+          "question": "Що таке DNS propagation і скільки це займає?",
+          "type": "open",
+          "expectedKeywords": ["поширення", "TTL", "кеш", "nameservers", "часу", "24-48 годин"],
+          "hint": "DNS зміни поширюються поступово через всі nameservers у світі"
+        },
+        {
+          "id": "q21_3",
+          "question": "Як зробити backup PostgreSQL і відновити з нього?",
+          "type": "open",
+          "expectedKeywords": ["pg_dump", "pg_restore", "psql", "файл", "cron", "автоматично"],
+          "hint": "pg_dump robota_db > backup.sql, pg_restore або psql < backup.sql"
+        },
+        {
+          "id": "q21_4",
+          "question": "Для чого cron і яка його синтаксис?",
+          "type": "open",
+          "expectedKeywords": ["розклад", "автоматично", "хвилини", "години", "* * * * *", "crontab"],
+          "hint": "Cron: 0 2 * * * — о 2 ночі щодня. Що означає кожна позиція?"
+        },
+        {
+          "id": "q21_5",
+          "question": "Як перевірити що сервер живий і додаток працює?",
+          "type": "open",
+          "expectedKeywords": ["health check", "curl", "uptime monitoring", "статус код", "200", "алерт"],
+          "hint": "curl https://myapp.com/api/health повертає 200? Uptime Robot моніторить автоматично"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p21_1",
+          "title": "Production Server Setup",
+          "description": "Підготуй production сервер: 1) Захист (fail2ban, disable root, ufw), 2) Домен + SSL (Let's Encrypt + Certbot auto-renewal), 3) Задеплой fullstack app через docker-compose, 4) Cron для щоденного backup PostgreSQL на Backblaze B2, 5) Uptime Robot моніторинг, 6) Логи через journalctl або Docker logs. Задокументуй всі кроки в runbook.md.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "bash",
+          "reviewCriteria": [
+            "fail2ban активний і захищає SSH",
+            "certbot renew --dry-run проходить успішно",
+            "Cron job для pg_dump існує в crontab",
+            "Backup відправляється на зовнішнє сховище",
+            "docker-compose up -d запускає всі сервіси",
+            "Uptime Robot або аналог налаштований",
+            "runbook.md — команди для rollback, restart, logs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "slug": "apis",
+      "title": "APIs",
+      "icon": "devicon-fastapi-plain",
+      "color": "#009688",
+      "topics": [
+        "REST: методи, статус коди, ресурси, HATEOAS",
+        "REST best practices: нейменування, версіонування",
+        "GraphQL: schema, queries, mutations, subscriptions, resolvers",
+        "Apollo Server і Apollo Client",
+        "WebSocket протокол",
+        "Server-Sent Events (SSE)",
+        "gRPC: protobuf, service definition",
+        "API versioning стратегії: URL, header, query param",
+        "Pagination: offset, cursor, keyset",
+        "Filtering і sorting patterns",
+        "OpenAPI/Swagger специфікація",
+        "API rate limiting і throttling",
+        "API keys і API gateway"
+      ],
+      "quiz": [
+        {
+          "id": "q22_1",
+          "question": "Чим REST відрізняється від GraphQL? Коли що обрати?",
+          "type": "open",
+          "expectedKeywords": ["overfetching", "underfetching", "endpoint", "схема", "гнучкість", "кешування"],
+          "hint": "REST: фіксовані endpoints і структура відповіді. GraphQL: клієнт вирішує що отримати"
+        },
+        {
+          "id": "q22_2",
+          "question": "Коли потрібен WebSocket замість HTTP polling?",
+          "type": "open",
+          "expectedKeywords": ["real-time", "двостороннє", "push", "чат", "постійне з'єднання", "overhead"],
+          "hint": "HTTP polling: клієнт постійно питає є нові дані? WebSocket: сервер сам сповіщає"
+        },
+        {
+          "id": "q22_3",
+          "question": "Що таке pagination і чим cursor-based краща за offset?",
+          "type": "open",
+          "expectedKeywords": ["сторінка", "пропуск", "вставка", "стабільність", "performance", "великі таблиці"],
+          "hint": "Offset пропускає N записів — але що якщо між запитами вставили новий запис?"
+        },
+        {
+          "id": "q22_4",
+          "question": "Для чого OpenAPI/Swagger специфікація?",
+          "type": "open",
+          "expectedKeywords": ["документація", "генерація клієнта", "контракт", "тестування", "UI"],
+          "hint": "OpenAPI — це машиночитаний контракт API. Що можна з нього згенерувати?"
+        },
+        {
+          "id": "q22_5",
+          "question": "Що таке API versioning і як його реалізувати?",
+          "type": "open",
+          "expectedKeywords": ["/v1/", "/v2/", "header", "query param", "breaking changes", "deprecation"],
+          "hint": "Як підтримувати старих клієнтів при зміні API контракту?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p22_1",
+          "title": "GraphQL API",
+          "description": "Зроби GraphQL API для blog: схема (User, Post, Comment), queries (posts з пагінацією, post by id), mutations (createPost, updatePost, deletePost, addComment), subscriptions (нові коментарі в реальному часі), авторизація через context, DataLoader для N+1 проблеми.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "SDL-first або code-first schema",
+            "Cursor-based pagination для posts",
+            "Auth через context (не в кожному resolver)",
+            "DataLoader для батчінгу запитів до DB",
+            "Subscription через WebSocket",
+            "Input validation і custom scalars (Date, URL)",
+            "Introspection відключений в production"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "slug": "realtime",
+      "title": "Real-time",
+      "icon": "devicon-nodejs-plain",
+      "color": "#764ABC",
+      "topics": [
+        "WebSocket: протокол, upgrade, ping/pong",
+        "Socket.IO: rooms, namespaces, acknowledgements",
+        "Reconnection стратегія і exponential backoff",
+        "Presence: online/offline статус",
+        "Typing indicators",
+        "Real-time notifications",
+        "Redis Pub/Sub для горизонтального масштабування",
+        "Redis Adapter для Socket.IO",
+        "Broadcast і targeted events",
+        "Message queue для offline delivery",
+        "WebRTC basics (peer-to-peer)"
+      ],
+      "quiz": [
+        {
+          "id": "q23_1",
+          "question": "Чим HTTP відрізняється від WebSocket протоколу?",
+          "type": "open",
+          "expectedKeywords": ["постійне з'єднання", "двостороннє", "overhead", "HTTP upgrade", "frames", "stateful"],
+          "hint": "HTTP — request/response і закривається. WebSocket — відкритий канал"
+        },
+        {
+          "id": "q23_2",
+          "question": "Для чого rooms у Socket.IO?",
+          "type": "open",
+          "expectedKeywords": ["групи", "broadcast", "тільки певним", "чат кімната", "namespace", "emit"],
+          "hint": "Room — це група socket'ів. Можна відправити подію тільки в певну кімнату"
+        },
+        {
+          "id": "q23_3",
+          "question": "Що таке reconnect стратегія і навіщо exponential backoff?",
+          "type": "open",
+          "expectedKeywords": ["перепідключення", "затримка", "навантаження", "збільшується", "thundering herd"],
+          "hint": "Якщо тисячі клієнтів одночасно перепідключаться — що станеться з сервером?"
+        },
+        {
+          "id": "q23_4",
+          "question": "Для чого Redis Pub/Sub при масштабуванні Socket.IO?",
+          "type": "open",
+          "expectedKeywords": ["кілька серверів", "load balancer", "інший процес", "broadcast", "adapter", "sticky session"],
+          "hint": "User A підключений до Server 1, User B до Server 2. Як відправити повідомлення від A до B?"
+        },
+        {
+          "id": "q23_5",
+          "question": "Як зробити online status і де зберігати цю інформацію?",
+          "type": "open",
+          "expectedKeywords": ["Redis", "connect", "disconnect", "TTL", "heartbeat", "Set"],
+          "hint": "Redis Set або key зі TTL. При connect — додати, при disconnect — видалити"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p23_1",
+          "title": "Real-time Chat",
+          "description": "Зроби real-time chat: авторизовані кімнати (тільки учасники можуть читати), typing indicator, online/offline статус, доставка повідомлень коли offline (зберігати в DB), read receipts, Socket.IO + Redis adapter для масштабування.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Auth middleware для Socket.IO (JWT перевірка при connect)",
+            "Rooms = chat кімнати, join/leave при підключенні",
+            "Typing indicator через debounce",
+            "Online status через Redis Set",
+            "Offline повідомлення зберігаються в DB і доставляються при reconnect",
+            "Redis adapter (@socket.io/redis-adapter)",
+            "Reconnection з exponential backoff на клієнті"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "slug": "frontend-architecture",
+      "title": "Frontend Architecture",
+      "icon": "devicon-react-original",
+      "color": "#61DAFB",
+      "topics": [
+        "Проблеми без архітектури: spaghetti code, coupling",
+        "Feature-Sliced Design (FSD): layers, slices, segments",
+        "Layers: app, pages, widgets, features, entities, shared",
+        "Публічний API шару: index.ts barrel exports",
+        "Правила імпортів: нижні шари не знають про верхні",
+        "Atomic Design: atoms, molecules, organisms",
+        "Shared/UI: компоненти без бізнес-логіки",
+        "Shared/API: базовий API client і типи",
+        "Entities: доменні моделі",
+        "Features: user actions (login, add-to-cart)",
+        "Widgets: складені блоки сторінки",
+        "Circular dependencies і як уникати",
+        "Monorepo з Turborepo або Nx"
+      ],
+      "quiz": [
+        {
+          "id": "q24_1",
+          "question": "Для чого frontend architecture? Які проблеми вона вирішує?",
+          "type": "open",
+          "expectedKeywords": ["масштабування", "команда", "coupling", "maintainability", "читабельність", "зміни"],
+          "hint": "Що відбувається в проекті на 50K рядків без архітектури?"
+        },
+        {
+          "id": "q24_2",
+          "question": "Що таке feature в контексті Feature-Sliced Design?",
+          "type": "open",
+          "expectedKeywords": ["дія користувача", "функціональність", "login", "add-to-cart", "бізнес логіка"],
+          "hint": "Feature — це те, що користувач може зробити: залогінитись, додати в кошик"
+        },
+        {
+          "id": "q24_3",
+          "question": "Що класти в shared шар?",
+          "type": "open",
+          "expectedKeywords": ["перевикористовувані", "без бізнес логіки", "UI компоненти", "utils", "api client", "types"],
+          "hint": "Shared — все що використовується в багатьох місцях і не знає про бізнес домен"
+        },
+        {
+          "id": "q24_4",
+          "question": "Чим entity відрізняється від feature в FSD?",
+          "type": "open",
+          "expectedKeywords": ["доменна модель", "дія", "User entity", "login feature", "пасивний", "активний"],
+          "hint": "Entity — це доменний об'єкт (User, Product). Feature — дія над ним (createUser, addToCart)"
+        },
+        {
+          "id": "q24_5",
+          "question": "Як уникати circular dependencies в FSD?",
+          "type": "open",
+          "expectedKeywords": ["правило імпортів", "нижні шари", "вгору", "shared", "не вгору-вниз", "entities не features"],
+          "hint": "Основне правило FSD: нижні шари не знають про верхні. entities не імпортують з features"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p24_1",
+          "title": "FSD Refactoring",
+          "description": "Переорганізуй раніше зроблений React проект у Feature-Sliced Design структуру: app/, pages/, widgets/, features/, entities/, shared/. Кожен шар має index.ts. Правила імпортів дотримані. Налаштуй ESLint plugin для FSD (@feature-sliced/eslint-config) щоб заборонити неправильні імпорти.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Структура відповідає FSD: 6 шарів",
+            "Кожен шар і slice мають index.ts (публічний API)",
+            "Entities: доменні типи і базові UI компоненти для них",
+            "Features: user interactions з власним state",
+            "Shared/UI: компоненти без будь-якої бізнес логіки",
+            "ESLint FSD plugin встановлений і немає violations",
+            "Немає cross-feature імпортів"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "slug": "backend-architecture",
+      "title": "Backend Architecture",
+      "icon": "devicon-nestjs-plain",
+      "color": "#E0234E",
+      "topics": [
+        "Layered architecture: Controllers → Services → Repositories",
+        "Clean Architecture: entities, use cases, interfaces, frameworks",
+        "Domain-Driven Design основи: aggregate, entity, value object, domain event",
+        "Repository pattern",
+        "Modular monolith: окремі модулі з власними boundary",
+        "Microservices: коли переходити, trade-offs",
+        "Event-driven architecture: events, handlers",
+        "Message queues: BullMQ, RabbitMQ",
+        "CQRS: Commands vs Queries",
+        "Saga pattern для distributed transactions",
+        "Hexagonal architecture (ports and adapters)"
+      ],
+      "quiz": [
+        {
+          "id": "q25_1",
+          "question": "Що таке DDD і які основні концепції?",
+          "type": "open",
+          "expectedKeywords": ["domain", "aggregate", "entity", "value object", "bounded context", "ubiquitous language"],
+          "hint": "DDD — проектування навколо бізнес домену. Aggregate root контролює інваріанти"
+        },
+        {
+          "id": "q25_2",
+          "question": "Чим monolith відрізняється від modular monolith?",
+          "type": "open",
+          "expectedKeywords": ["модулі", "boundary", "незалежні", "один процес", "coupling", "API між модулями"],
+          "hint": "Modular monolith — один процес, але з чіткими межами між модулями"
+        },
+        {
+          "id": "q25_3",
+          "question": "Коли microservices виправдані, а коли ні?",
+          "type": "open",
+          "expectedKeywords": ["команда", "масштабування", "складність", "overhead", "розподілені транзакції", "рано"],
+          "hint": "Microservices вирішують organizational і scaling проблеми. Але мають свою ціну"
+        },
+        {
+          "id": "q25_4",
+          "question": "Що таке CQRS?",
+          "type": "open",
+          "expectedKeywords": ["команди", "запити", "розділення", "write model", "read model", "оптимізація"],
+          "hint": "Command Query Responsibility Segregation: читання і запис — різні моделі"
+        },
+        {
+          "id": "q25_5",
+          "question": "Для чого message queue в backend?",
+          "type": "open",
+          "expectedKeywords": ["асинхронно", "decoupling", "retry", "offline processing", "навантаження", "email"],
+          "hint": "Замість синхронного відправлення email в request — поставити в чергу"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p25_1",
+          "title": "Modular Monolith Architecture",
+          "description": "Спроєктуй і реалізуй backend для SaaS з modular monolith підходом: AuthModule, UsersModule, BillingModule, NotificationsModule. Кожен модуль має власний Prisma schema, внутрішні сервіси і публічний API (тільки через exposed interfaces). Міжмодульна комунікація через Events (не прямі імпорти). BullMQ для фонових задач.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Кожен модуль: controller, service, repository, types",
+            "Модулі не імпортують внутрішні класи інших модулів",
+            "Міжмодульна комунікація тільки через Events або публічний API",
+            "BullMQ для email відправлення і billing webhooks",
+            "Repository pattern ховає Prisma від service layer",
+            "Domain events: UserRegistered, SubscriptionCreated",
+            "Кожен модуль має власні тести"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "slug": "system-design",
+      "title": "System Design",
+      "icon": "devicon-linux-plain",
+      "color": "#FF6B6B",
+      "topics": [
+        "Scalability: vertical vs horizontal scaling",
+        "Load balancing: round-robin, least connections, consistent hashing",
+        "Caching strategies: cache-aside, write-through, write-back",
+        "Cache eviction: LRU, LFU, TTL",
+        "CDN: як працює, edge caching",
+        "Database replication: master-slave, master-master",
+        "Database sharding: horizontal partitioning",
+        "Message queues в distributed systems",
+        "Rate limiting алгоритми: token bucket, leaky bucket",
+        "Eventual consistency vs strong consistency",
+        "CAP theorem",
+        "Fault tolerance: retry, circuit breaker, fallback",
+        "Monitoring і observability: metrics, logs, traces"
+      ],
+      "quiz": [
+        {
+          "id": "q26_1",
+          "question": "Що таке horizontal scaling і як він відрізняється від vertical?",
+          "type": "open",
+          "expectedKeywords": ["більше машин", "потужніша машина", "stateless", "load balancer", "лінійно"],
+          "hint": "Vertical — більший сервер. Horizontal — більше серверів. Які обмеження кожного?"
+        },
+        {
+          "id": "q26_2",
+          "question": "Для чого cache і де його розміщувати?",
+          "type": "open",
+          "expectedKeywords": ["швидкість", "база даних", "Redis", "CDN", "in-memory", "дорогі обчислення"],
+          "hint": "Кеш зберігає результат дорогих операцій. Де розмістити — залежить від типу даних"
+        },
+        {
+          "id": "q26_3",
+          "question": "Що таке message queue і яку проблему він вирішує?",
+          "type": "open",
+          "expectedKeywords": ["асинхронно", "decoupling", "buffer", "retry", "producer", "consumer", "пік"],
+          "hint": "Queue буферизує задачі. Producer і consumer можуть мати різні швидкості"
+        },
+        {
+          "id": "q26_4",
+          "question": "Що таке database replication і для чого вона потрібна?",
+          "type": "open",
+          "expectedKeywords": ["копія", "read replicas", "failover", "availability", "master", "slave", "lag"],
+          "hint": "Replication: є primary і replicas. Читання з replicas, запис в primary"
+        },
+        {
+          "id": "q26_5",
+          "question": "Що таке eventual consistency і коли вона прийнятна?",
+          "type": "open",
+          "expectedKeywords": ["з часом", "не одразу", "різні ноди", "social media", "likes", "CAP", "availability"],
+          "hint": "Eventual consistency: дані будуть однаковими, але не одразу. Де це прийнятно?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p26_1",
+          "title": "System Design Document",
+          "description": "Спроєктуй систему для одного з: Instagram-like app, або Booking.com-like, або real-time chat для 1M users. Напиши design document: functional requirements, non-functional requirements (10M users, 99.9% uptime), high-level architecture diagram, database schema, API design, scaling strategy, potential bottlenecks і як їх вирішити.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "markdown",
+          "reviewCriteria": [
+            "Functional і non-functional requirements чітко визначені",
+            "Оцінка масштабу: DAU, requests/sec, storage",
+            "Architecture diagram з CDN, Load Balancer, App servers, DB",
+            "Database schema для core entities",
+            "Caching strategy: що кешувати і де",
+            "Horizontal scaling план",
+            "Потенційні bottlenecks і рішення",
+            "Trade-offs обговорені (не тільки ідеальне рішення)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "slug": "ui-ux",
+      "title": "UI/UX для розробника",
+      "icon": "devicon-figma-plain",
+      "color": "#F24E1E",
+      "topics": [
+        "Visual hierarchy: розмір, контраст, spacing",
+        "Typography: type scale, line-height, letter-spacing",
+        "Color theory: HSL, contrast ratio, WCAG",
+        "Spacing scale: 4px або 8px grid",
+        "Component design: button states, input states",
+        "Design systems: tokens, components, documentation",
+        "Responsive design principles",
+        "Accessibility: WCAG 2.1 рівні A, AA",
+        "Figma: inspect, варіанти, auto layout",
+        "Handoff від дизайнера до розробника",
+        "UI patterns: modals, tooltips, dropdowns, notifications",
+        "Micro-interactions і feedback"
+      ],
+      "quiz": [
+        {
+          "id": "q27_1",
+          "question": "Що таке visual hierarchy і як її створити?",
+          "type": "open",
+          "expectedKeywords": ["розмір", "контраст", "колір", "spacing", "увага", "пріоритет", "bold"],
+          "hint": "Hierarchy — порядок в якому eye сканує сторінку. Як керувати цим порядком?"
+        },
+        {
+          "id": "q27_2",
+          "question": "Для чого spacing scale і чому краще 8px grid?",
+          "type": "open",
+          "expectedKeywords": ["консистентність", "8px", "4px", "ритм", "кратно", "узгодженість"],
+          "hint": "Spacing scale: 4, 8, 16, 24, 32, 48, 64. Чому кратні числа виглядають краще?"
+        },
+        {
+          "id": "q27_3",
+          "question": "Що таке design system?",
+          "type": "open",
+          "expectedKeywords": ["tokens", "компоненти", "документація", "консистентність", "команда", "guidelines"],
+          "hint": "Design system — більше ніж бібліотека компонентів. Що ще входить?"
+        },
+        {
+          "id": "q27_4",
+          "question": "Як перевірити contrast і які вимоги WCAG?",
+          "type": "open",
+          "expectedKeywords": ["4.5:1", "3:1", "AA", "AAA", "text", "інструмент", "color contrast"],
+          "hint": "WCAG AA вимагає 4.5:1 для звичайного тексту, 3:1 для великого"
+        },
+        {
+          "id": "q27_5",
+          "question": "Чому accessibility важлива з точки зору бізнесу і технічно?",
+          "type": "open",
+          "expectedKeywords": ["юзери", "закон", "SEO", "screen reader", "keyboard", "15%", "disability"],
+          "hint": "15% людей мають disabilities. Є законодавчі вимоги. І SEO вигоди"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p27_1",
+          "title": "Design System",
+          "description": "Зроби мінімальний design system: 1) Tokens файл (кольори, spacing, typography, shadows, radius), 2) Button компонент (5 variants, 3 sizes, disabled state, loading state), 3) Input компонент (label, helper text, error state, icons), 4) Modal система, 5) Storybook або окрема demo сторінка з усіма станами.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Tokens: CSS variables або JS constants з semantic naming",
+            "Button: всі стани (hover, focus, disabled, loading) помітні",
+            "Focus visible: видно з клавіатури (не прибраний outline)",
+            "Color contrast >= 4.5:1 для тексту",
+            "Input: error state з aria-describedby на error message",
+            "Modal: focus trap, close на Escape, aria-modal",
+            "Responsive: все виглядає на мобільному"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "slug": "advanced-animations",
+      "title": "Advanced Animations",
+      "icon": "devicon-threejs-original",
+      "color": "#000000",
+      "topics": [
+        "GSAP: TweenMax, timeline, from, to, fromTo",
+        "GSAP ScrollTrigger: trigger, start, end, scrub, pin",
+        "GSAP Stagger ефекти",
+        "GSAP ease functions",
+        "Framer Motion: motion components, variants",
+        "Framer Motion layout animations: layout, layoutId",
+        "Framer Motion page transitions",
+        "AnimatePresence для mount/unmount",
+        "Three.js: scene, camera, renderer setup",
+        "Three.js: geometry, materials, meshes",
+        "Three.js: lights (ambient, directional, point)",
+        "Three.js: OrbitControls, animations loop",
+        "GLTF моделі завантаження",
+        "WebGL performance optimization"
+      ],
+      "quiz": [
+        {
+          "id": "q28_1",
+          "question": "Для чого GSAP timeline і чим він кращий за CSS animations для складних сценаріїв?",
+          "type": "open",
+          "expectedKeywords": ["послідовність", "контроль", "пауза", "reverse", "scrub", "синхронізація"],
+          "hint": "Timeline дозволяє керувати складними послідовностями: пауза, перемотка, синхронізація"
+        },
+        {
+          "id": "q28_2",
+          "question": "Що таке ScrollTrigger і як він пов'язаний з GSAP?",
+          "type": "open",
+          "expectedKeywords": ["scroll", "trigger", "pin", "scrub", "progress", "viewport", "анімація при скролі"],
+          "hint": "ScrollTrigger: анімація запускається і контролюється положенням скролу"
+        },
+        {
+          "id": "q28_3",
+          "question": "Чим Framer Motion корисний в React порівняно з CSS animations?",
+          "type": "open",
+          "expectedKeywords": ["variants", "state", "mount", "AnimatePresence", "layout", "JavaScript контроль"],
+          "hint": "Framer Motion — анімації прив'язані до React state, не до CSS класів"
+        },
+        {
+          "id": "q28_4",
+          "question": "Що таке scene у Three.js і які мінімальні компоненти потрібні для рендеру?",
+          "type": "open",
+          "expectedKeywords": ["scene", "camera", "renderer", "mesh", "geometry", "material", "animate loop"],
+          "hint": "Мінімум: Scene + Camera + Renderer + Mesh (Geometry + Material)"
+        },
+        {
+          "id": "q28_5",
+          "question": "Як не зламати performance анімаціями?",
+          "type": "open",
+          "expectedKeywords": ["transform", "opacity", "GPU", "requestAnimationFrame", "will-change", "60fps", "profiler"],
+          "hint": "Анімуй тільки transform і opacity. Уникай layout-triggering properties"
+        }
+      ],
+      "practice": [
+        {
+          "id": "p28_1",
+          "title": "Animated Portfolio Page",
+          "description": "Зроби portfolio landing page з: 1) GSAP hero анімація при завантаженні (stagger для тексту), 2) ScrollTrigger: pin секція з горизонтальним scrollом, 3) Framer Motion для переходів між секціями, 4) Three.js фоновий елемент (обертаюча геометрія або particle system), 5) Всі анімації поважають prefers-reduced-motion.",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "GSAP timeline для hero sequence (не окремі tweens)",
+            "ScrollTrigger: scrub: true для smooth scroll-linked animation",
+            "Framer Motion AnimatePresence для page transitions",
+            "Three.js requestAnimationFrame loop правильно очищається при unmount",
+            "60fps: немає layout thrashing в animation loop",
+            "prefers-reduced-motion: all animations відключені або спрощені",
+            "Mobile: анімації спрощені або відключені (performance)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "slug": "final-project",
+      "title": "Final Project",
+      "icon": "devicon-react-original",
+      "color": "#667EEA",
+      "topics": [
+        "Планування архітектури",
+        "Database schema design",
+        "API design і документація",
+        "Frontend архітектура (FSD)",
+        "Backend архітектура (modular monolith)",
+        "Auth flow",
+        "Real-time функціональність",
+        "Payment integration",
+        "Email notifications",
+        "Testing strategy",
+        "Docker + Nginx + VPS деплой",
+        "CI/CD pipeline",
+        "Monitoring і alerting",
+        "Documentation"
+      ],
+      "quiz": [
+        {
+          "id": "q29_1",
+          "question": "Спроєктуй архітектуру для Real Estate CRM: опиши frontend, backend, database, infrastructure.",
+          "type": "open",
+          "expectedKeywords": ["Nuxt/React", "NestJS", "PostgreSQL", "Redis", "Docker", "Nginx", "CI/CD"],
+          "hint": "Думай про всі шари: клієнт, сервер, база, інфраструктура"
+        },
+        {
+          "id": "q29_2",
+          "question": "Опиши database schema для CRM з users, companies, contacts, deals, activities.",
+          "type": "open",
+          "expectedKeywords": ["relations", "foreign keys", "indexes", "nullable", "enums", "timestamps"],
+          "hint": "Яка кардинальність між entities? Які поля потрібні для кожної?"
+        },
+        {
+          "id": "q29_3",
+          "question": "Опиши повний auth flow: реєстрація, логін, refresh, logout, OAuth.",
+          "type": "open",
+          "expectedKeywords": ["httpOnly cookie", "JWT", "refresh rotation", "OAuth callback", "state param"],
+          "hint": "Крок за кроком: що відбувається при кожній операції?"
+        },
+        {
+          "id": "q29_4",
+          "question": "Опиши deploy flow від push до production без downtime.",
+          "type": "open",
+          "expectedKeywords": ["GitHub Actions", "Docker build", "registry", "SSH", "health check", "blue-green"],
+          "hint": "Zero-downtime: як запустити нову версію не зупиняючи стару?"
+        },
+        {
+          "id": "q29_5",
+          "question": "Як масштабувати проект якщо кількість users зросте x100?",
+          "type": "open",
+          "expectedKeywords": ["horizontal scaling", "load balancer", "Redis", "read replicas", "CDN", "queue"],
+          "hint": "Де bottlenecks при x100 навантаженні? Database? Server? Static assets?"
+        }
+      ],
+      "practice": [
+        {
+          "id": "pfinal_1",
+          "title": "Full SaaS Application",
+          "description": "Побудуй повноцінний SaaS продукт на вибір: Real Estate CRM, ATS (Applicant Tracking System), або Finance Tracker. Технічні вимоги: Frontend (Nuxt 3 або React + Vite, TypeScript, Tailwind, FSD архітектура), Backend (NestJS, PostgreSQL, Prisma, Redis, WebSocket, Swagger, тести), DevOps (Docker, Nginx, VPS, SSL, GitHub Actions, backups, monitoring).",
+          "type": "code",
+          "submitType": "code",
+          "codeLanguage": "typescript",
+          "reviewCriteria": [
+            "Frontend: FSD архітектура, типізація, форми з валідацією",
+            "Backend: модульна архітектура, auth, RBAC, API документація",
+            "Database: нормалізована схема, міграції, seed",
+            "Real-time: хоча б одна real-time фіча (notifications або chat)",
+            "Testing: unit + integration тести, > 60% coverage",
+            "DevOps: повний CI/CD pipeline, SSL, backups",
+            "Documentation: README з setup інструкціями, API docs",
+            "Код review: немає obvious code smells, є error handling"
+          ]
+        }
+      ]
+    }
+  ]
+}
