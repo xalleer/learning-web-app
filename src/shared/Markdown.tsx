@@ -1,6 +1,4 @@
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export function Markdown({ content }: { content: string }) {
   return (
@@ -10,9 +8,11 @@ export function Markdown({ content }: { content: string }) {
           code({ className, children }) {
             const match = /language-(\w+)/.exec(className || '');
             return match ? (
-              <SyntaxHighlighter language={match[1]} style={atomDark} PreTag="div">
-                {String(children).replace(/\n$/, '')}
-              </SyntaxHighlighter>
+              <pre className="overflow-x-auto rounded-lg border border-border bg-bg-primary p-4">
+                <code className="font-mono text-xs text-text-primary" data-language={match[1]}>
+                  {String(children).replace(/\n$/, '')}
+                </code>
+              </pre>
             ) : (
               <code className="rounded bg-bg-elevated px-1 py-0.5 font-mono text-xs text-text-primary">{children}</code>
             );
