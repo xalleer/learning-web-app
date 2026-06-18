@@ -1,11 +1,10 @@
-'use client';
-
 import { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Activity, Cloud, RefreshCw } from 'lucide-react';
 import { useAppStore } from '@/app/store';
 import { Button } from '@/shared/ui';
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function App() {
   const {
     userId,
     setUserId,
@@ -30,7 +29,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent text-sm font-bold text-white">FS</div>
             <div>
               <p className="text-sm font-semibold text-text-primary">FSdev Roadmap</p>
-              <p className="text-xs text-text-secondary">Next.js + OpenAI + MongoDB sync</p>
+              <p className="text-xs text-text-secondary">React + OpenAI + SQLite sync</p>
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -67,7 +66,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </p>
           </div>
         </div>
-        {children}
+        <Outlet />
       </div>
     </div>
   );
