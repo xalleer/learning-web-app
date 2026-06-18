@@ -23,5 +23,17 @@ export async function readBody(req) {
 
 export function handleError(res, error) {
   const status = error.status || 500;
-  sendJson(res, status, { error: error.message || 'Server error' });
+  const message = error.message || 'Server error';
+  sendJson(res, status, {
+    error: message,
+    hint: getHint(message),
+  });
+}
+
+function getHint(message) {
+  if (message.includes('MONGODB_URI')) return 'Set MONGODB_URI in Vercel Project Settings -> Environment Variables and redeploy.';
+  if (message.includes('querySrv') || message.includes('ENOTFOUND')) return 'MongoDB Atlas hostname cannot be resolved from the serverless function.';
+  if (message.includes('Server selection timed out')) return 'Check MongoDB Atlas Network Access. For Vercel, allow 0.0.0.0/0 or use a provider integration.';
+  if (message.includes('bad auth') || message.includes('Authentication failed')) return 'Check MongoDB username/password in MONGODB_URI.';
+  return undefined;
 }

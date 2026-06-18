@@ -8,6 +8,10 @@ const syncKeyStorage = 'fsdev-sync-key';
 let loadRequestId = 0;
 let lastLocalChangeAt = 0;
 
+function progressStorageKey(userId: string) {
+  return `fsdev-progress:${userId}`;
+}
+
 function defaultProgress(): Progress {
   const now = new Date().toISOString();
   return {
@@ -43,6 +47,24 @@ function normalizeProgress(progress: Progress | null | undefined): Progress {
   };
 }
 
+function loadLocalProgress(userId: string): Progress | null {
+  try {
+    const raw = window.localStorage.getItem(progressStorageKey(userId));
+    return raw ? normalizeProgress(JSON.parse(raw) as Progress) : null;
+  } catch (error) {
+    console.warn(error);
+    return null;
+  }
+}
+
+function saveLocalProgress(userId: string, progress: Progress) {
+  try {
+    window.localStorage.setItem(progressStorageKey(userId), JSON.stringify(progress));
+  } catch (error) {
+    console.warn(error);
+  }
+}
+
 function touch(progress: Progress): Progress {
   const today = todayKey();
   let streakDays = progress.streakDays;
@@ -60,7 +82,9 @@ function touch(progress: Progress): Progress {
 interface AppStore {
   userId: string;
   isProgressLoading: boolean;
+  isProgressSaving: boolean;
   hasLoadedProgress: boolean;
+  syncError: string | null;
   progress: Progress;
   teacherMessages: Record<string, TeacherMessage[]>;
   setUserId: (userId: string) => Promise<void>;
@@ -80,14 +104,22 @@ interface AppStore {
 export const useAppStore = create<AppStore>((set, get) => ({
   userId: window.localStorage.getItem(syncKeyStorage) || 'default',
   isProgressLoading: true,
+  isProgressSaving: false,
   hasLoadedProgress: false,
+  syncError: null,
   progress: defaultProgress(),
   teacherMessages: {},
 
   async setUserId(userId) {
     const cleanUserId = userId.trim() || 'default';
     window.localStorage.setItem(syncKeyStorage, cleanUserId);
-    set({ userId: cleanUserId, isProgressLoading: true, hasLoadedProgress: false });
+    set({
+      userId: cleanUserId,
+      progress: loadLocalProgress(cleanUserId) ?? defaultProgress(),
+      isProgressLoading: true,
+      hasLoadedProgress: false,
+      syncError: null,
+    });
     await get().loadProgress();
   },
 
@@ -95,7 +127,12 @@ export const useAppStore = create<AppStore>((set, get) => ({
     const requestId = ++loadRequestId;
     const requestedUserId = get().userId;
     const loadStartedAt = Date.now();
-    set({ isProgressLoading: true });
+    const localProgress = loadLocalProgress(requestedUserId);
+    set({
+      progress: localProgress ?? get().progress,
+      isProgressLoading: true,
+      syncError: null,
+    });
     try {
       const { progress } = await loadRemoteProgress(requestedUserId);
       if (requestId !== loadRequestId || requestedUserId !== get().userId) return;
@@ -103,21 +140,32 @@ export const useAppStore = create<AppStore>((set, get) => ({
         set({ isProgressLoading: false, hasLoadedProgress: true });
         return;
       }
-      set({ progress: normalizeProgress(progress), isProgressLoading: false, hasLoadedProgress: true });
+      const nextProgress = progress ? normalizeProgress(progress) : (localProgress ?? defaultProgress());
+      saveLocalProgress(requestedUserId, nextProgress);
+      set({ progress: nextProgress, isProgressLoading: false, hasLoadedProgress: true, syncError: null });
     } catch (error) {
       console.warn(error);
-      if (requestId === loadRequestId) set({ isProgressLoading: false, hasLoadedProgress: true });
+      if (requestId === loadRequestId) {
+        const message = error instanceof Error ? error.message : 'Не вдалося підтягнути прогрес';
+        set({ isProgressLoading: false, hasLoadedProgress: true, syncError: message });
+      }
     }
   },
 
   async persistProgress(progress) {
     lastLocalChangeAt = Date.now();
     const userId = get().userId;
-    set({ progress });
+    saveLocalProgress(userId, progress);
+    set({ progress, isProgressSaving: true, syncError: null });
     try {
       await saveRemoteProgress(userId, progress);
+      if (userId === get().userId) set({ isProgressSaving: false, syncError: null });
     } catch (error) {
       console.warn(error);
+      if (userId === get().userId) {
+        const message = error instanceof Error ? error.message : 'Не вдалося зберегти прогрес';
+        set({ isProgressSaving: false, syncError: message });
+      }
     }
   },
 

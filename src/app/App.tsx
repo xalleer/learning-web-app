@@ -5,7 +5,7 @@ import { useAppStore } from '@/app/store';
 import { Button } from '@/shared/ui';
 
 export function App() {
-  const { userId, setUserId, loadProgress, isProgressLoading } = useAppStore();
+  const { userId, setUserId, loadProgress, isProgressLoading, isProgressSaving, syncError } = useAppStore();
   const [draftUserId, setDraftUserId] = useState(userId);
 
   useEffect(() => {
@@ -23,28 +23,33 @@ export function App() {
               <p className="text-xs text-text-secondary">React + OpenAI + SQLite sync</p>
             </div>
           </div>
-          <form
-            className="flex flex-col gap-2 sm:flex-row sm:items-center"
-            onSubmit={(event) => {
-              event.preventDefault();
-              void setUserId(draftUserId);
-            }}
-          >
-            <label className="flex items-center gap-2 text-xs text-text-secondary">
-              <Cloud className="h-4 w-4 text-accent" />
-              Код синхронізації
-            </label>
-            <input
-              value={draftUserId}
-              onChange={(event) => setDraftUserId(event.target.value)}
-              className="h-10 min-w-0 rounded-md border border-border bg-bg-primary px-3 text-sm text-text-primary placeholder:text-text-muted sm:w-56"
-              placeholder="default"
-            />
-            <Button type="submit" className="bg-bg-elevated hover:bg-border-hover" loading={isProgressLoading}>
-              <RefreshCw className="h-4 w-4" />
-              Sync
-            </Button>
-          </form>
+          <div className="flex flex-col gap-2">
+            <form
+              className="flex flex-col gap-2 sm:flex-row sm:items-center"
+              onSubmit={(event) => {
+                event.preventDefault();
+                void setUserId(draftUserId);
+              }}
+            >
+              <label className="flex items-center gap-2 text-xs text-text-secondary">
+                <Cloud className="h-4 w-4 text-accent" />
+                Код синхронізації
+              </label>
+              <input
+                value={draftUserId}
+                onChange={(event) => setDraftUserId(event.target.value)}
+                className="h-10 min-w-0 rounded-md border border-border bg-bg-primary px-3 text-sm text-text-primary placeholder:text-text-muted sm:w-56"
+                placeholder="default"
+              />
+              <Button type="submit" className="bg-bg-elevated hover:bg-border-hover" loading={isProgressLoading}>
+                <RefreshCw className="h-4 w-4" />
+                Sync
+              </Button>
+            </form>
+            <p className={`text-xs ${syncError ? 'text-red-300' : 'text-text-muted'}`}>
+              {syncError ? `Sync error: ${syncError}` : isProgressSaving ? 'Зберігаю прогрес...' : 'Прогрес синхронізовано локально і з MongoDB'}
+            </p>
+          </div>
         </div>
         <Outlet />
       </div>

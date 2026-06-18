@@ -8,8 +8,11 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
       ...init?.headers,
     },
   });
-  const data = (await response.json()) as T & { error?: string };
-  if (!response.ok) throw new Error(data.error || 'API request failed');
+  const data = (await response.json()) as T & { error?: string; hint?: string };
+  if (!response.ok) {
+    const details = [data.error || 'API request failed', data.hint].filter(Boolean).join(' ');
+    throw new Error(details);
+  }
   return data;
 }
 
