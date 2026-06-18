@@ -48,6 +48,7 @@ function normalizeProgress(progress: Progress | null | undefined): Progress {
 }
 
 function loadLocalProgress(userId: string): Progress | null {
+  if (typeof window === 'undefined') return null;
   try {
     const raw = window.localStorage.getItem(progressStorageKey(userId));
     return raw ? normalizeProgress(JSON.parse(raw) as Progress) : null;
@@ -58,6 +59,7 @@ function loadLocalProgress(userId: string): Progress | null {
 }
 
 function saveLocalProgress(userId: string, progress: Progress) {
+  if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(progressStorageKey(userId), JSON.stringify(progress));
   } catch (error) {
@@ -105,7 +107,7 @@ interface AppStore {
 }
 
 export const useAppStore = create<AppStore>((set, get) => ({
-  userId: window.localStorage.getItem(syncKeyStorage) || 'default',
+  userId: typeof window === 'undefined' ? 'default' : window.localStorage.getItem(syncKeyStorage) || 'default',
   isProgressLoading: true,
   isProgressSaving: false,
   hasLoadedProgress: false,
@@ -117,7 +119,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
   async setUserId(userId) {
     const cleanUserId = userId.trim() || 'default';
-    window.localStorage.setItem(syncKeyStorage, cleanUserId);
+    if (typeof window !== 'undefined') window.localStorage.setItem(syncKeyStorage, cleanUserId);
     set({
       userId: cleanUserId,
       progress: loadLocalProgress(cleanUserId) ?? defaultProgress(),
