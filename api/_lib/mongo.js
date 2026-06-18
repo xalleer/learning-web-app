@@ -15,6 +15,7 @@ function getUri() {
 export async function getDb() {
   if (!clientPromise) {
     clientPromise = new MongoClient(getUri(), {
+      tls: true,
       serverSelectionTimeoutMS: 5000,
     }).connect();
   }
