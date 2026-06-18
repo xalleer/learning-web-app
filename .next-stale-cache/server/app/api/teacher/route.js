@@ -1,0 +1,11 @@
+"use strict";(()=>{var e={};e.id=956,e.ids=[956],e.modules={399:e=>{e.exports=require("next/dist/compiled/next-server/app-page.runtime.prod.js")},517:e=>{e.exports=require("next/dist/compiled/next-server/app-route.runtime.prod.js")},2048:e=>{e.exports=require("fs")},2615:e=>{e.exports=require("http")},8791:e=>{e.exports=require("https")},5315:e=>{e.exports=require("path")},8621:e=>{e.exports=require("punycode")},6162:e=>{e.exports=require("stream")},7360:e=>{e.exports=require("url")},1764:e=>{e.exports=require("util")},2623:e=>{e.exports=require("worker_threads")},1568:e=>{e.exports=require("zlib")},7561:e=>{e.exports=require("node:fs")},4492:e=>{e.exports=require("node:stream")},2477:e=>{e.exports=require("node:stream/web")},9124:(e,r,t)=>{t.r(r),t.d(r,{originalPathname:()=>q,patchFetch:()=>v,requestAsyncStorage:()=>x,routeModule:()=>l,serverHooks:()=>m,staticGenerationAsyncStorage:()=>h});var o={};t.r(o),t.d(o,{OPTIONS:()=>d,POST:()=>c,runtime:()=>p});var s=t(9303),a=t(8716),i=t(670),u=t(4526),n=t(5242);let p="nodejs";function d(){return(0,u.YM)()}async function c(e){try{let r=await e.json(),t=(0,n.Ro)(r.moduleSlug),o=t?.topics||r.moduleTopics||[],s=`Ти досвідчений Full Stack developer і викладач. Допомагаєш студенту з модулем "${r.moduleTitle}".
+
+Теми модуля:
+${o.join("\n")}
+
+Правила:
+- Відповідай українською
+- Пояснюй просто, з аналогіями і прикладами коду
+- Якщо питання не стосується теми модуля, м'яко поверни до теми
+- Markdown форматування для коду
+- 3-5 абзаців максимум`,a=[...(r.conversationHistory||[]).slice(-10),{role:"user",content:r.userMessage}];return(0,u.AV)(200,{message:await (0,n.xg)(s,a,1200)})}catch(e){return(0,u.VR)(e)}}let l=new s.AppRouteRouteModule({definition:{kind:a.x.APP_ROUTE,page:"/api/teacher/route",pathname:"/api/teacher",filename:"route",bundlePath:"app/api/teacher/route"},resolvedPagePath:"/Users/svatoslavarosenko/learning-web-app/app/api/teacher/route.ts",nextConfigOutput:"",userland:o}),{requestAsyncStorage:x,staticGenerationAsyncStorage:h,serverHooks:m}=l,q="/api/teacher/route";function v(){return(0,i.patchFetch)({serverHooks:m,staticGenerationAsyncStorage:h})}}};var r=require("../../../webpack-runtime.js");r.C(e);var t=e=>r(r.s=e),o=r.X(0,[276,972,214,325],()=>t(9124));module.exports=o})();
