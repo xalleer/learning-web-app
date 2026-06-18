@@ -20,6 +20,14 @@ export async function loadProgress(userId: string) {
   return request<{ progress: Progress | null }>(`/api/progress/${encodeURIComponent(userId)}`);
 }
 
+export async function checkHealth() {
+  return request<{
+    ok: boolean;
+    mongo: { ok: boolean; dbName: string };
+    env: { hasMongoUri: boolean; mongoDb: string; hasOpenAiKey: boolean };
+  }>('/api/health');
+}
+
 export async function saveProgress(userId: string, progress: Progress) {
   return request<{ ok: true }>(`/api/progress/${encodeURIComponent(userId)}`, {
     method: 'POST',

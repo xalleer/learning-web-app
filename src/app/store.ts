@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { modules } from '@/shared/course';
-import { loadProgress as loadRemoteProgress, saveProgress as saveRemoteProgress } from '@/shared/api';
+import { checkHealth as checkRemoteHealth, loadProgress as loadRemoteProgress, saveProgress as saveRemoteProgress } from '@/shared/api';
 import type { ModuleStatus, PracticeResult, Progress, QuizResult, TeacherMessage } from '@/shared/types';
 import { todayKey, yesterdayKey } from '@/shared/utils';
 
@@ -85,10 +85,13 @@ interface AppStore {
   isProgressSaving: boolean;
   hasLoadedProgress: boolean;
   syncError: string | null;
+  lastRemoteSyncAt: string | null;
+  healthStatus: string | null;
   progress: Progress;
   teacherMessages: Record<string, TeacherMessage[]>;
   setUserId: (userId: string) => Promise<void>;
   loadProgress: () => Promise<void>;
+  checkHealth: () => Promise<void>;
   persistProgress: (progress: Progress) => Promise<void>;
   markTopicDone: (moduleSlug: string, topicIndex: number) => void;
   isTopicDone: (moduleSlug: string, topicIndex: number) => boolean;
@@ -107,6 +110,8 @@ export const useAppStore = create<AppStore>((set, get) => ({
   isProgressSaving: false,
   hasLoadedProgress: false,
   syncError: null,
+  lastRemoteSyncAt: null,
+  healthStatus: null,
   progress: defaultProgress(),
   teacherMessages: {},
 
@@ -142,13 +147,33 @@ export const useAppStore = create<AppStore>((set, get) => ({
       }
       const nextProgress = progress ? normalizeProgress(progress) : (localProgress ?? defaultProgress());
       saveLocalProgress(requestedUserId, nextProgress);
-      set({ progress: nextProgress, isProgressLoading: false, hasLoadedProgress: true, syncError: null });
+      set({
+        progress: nextProgress,
+        isProgressLoading: false,
+        hasLoadedProgress: true,
+        syncError: null,
+        lastRemoteSyncAt: new Date().toLocaleTimeString(),
+      });
     } catch (error) {
       console.warn(error);
       if (requestId === loadRequestId) {
         const message = error instanceof Error ? error.message : 'Не вдалося підтягнути прогрес';
         set({ isProgressLoading: false, hasLoadedProgress: true, syncError: message });
       }
+    }
+  },
+
+  async checkHealth() {
+    set({ healthStatus: 'Перевіряю /api/health...', syncError: null });
+    try {
+      const health = await checkRemoteHealth();
+      set({
+        healthStatus: `Mongo OK: ${health.mongo.dbName}. Env: MONGODB_URI=${health.env.hasMongoUri ? 'yes' : 'no'}, OPENAI=${health.env.hasOpenAiKey ? 'yes' : 'no'}`,
+        syncError: null,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Health check failed';
+      set({ healthStatus: null, syncError: message });
     }
   },
 
@@ -159,7 +184,9 @@ export const useAppStore = create<AppStore>((set, get) => ({
     set({ progress, isProgressSaving: true, syncError: null });
     try {
       await saveRemoteProgress(userId, progress);
-      if (userId === get().userId) set({ isProgressSaving: false, syncError: null });
+      if (userId === get().userId) {
+        set({ isProgressSaving: false, syncError: null, lastRemoteSyncAt: new Date().toLocaleTimeString() });
+      }
     } catch (error) {
       console.warn(error);
       if (userId === get().userId) {
